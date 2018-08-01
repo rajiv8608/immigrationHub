@@ -1,0 +1,156 @@
+    <style>
+    .myclass {
+      float: right;
+      margin: 20px 0px 0 0;
+      border: none;
+      background:darkgray;
+      color: #d4d4d4 !important;
+      border-radius: 5px;
+      padding: 8px 15px;
+    }
+    </style>
+<div class="main-content" *ngIf="getQuestionnaireData">
+
+    <div class="table-data">
+        <h1 class="clickname" (click)="appService.moveToPage('immigrationview/client/detail/client-details');highlightSBLink('Client Details')"><img style="margin-bottom: 4px !important;" src="../../../../assets/images/Group984.png" />&nbsp;&nbsp;&nbsp; <span>{{appService.clientfirstName}} {{appService.clientlastName}}</span></h1>
+        <h1 style="float:right;">{{appService.petitionDetails}}</h1>
+
+        <div class="clearfix"></div>
+        <h2 class="headerinsections" style="margin-top: 0px !important;color: #4EA0F9 !important;margin-bottom: 7px!important;">Client</h2>
+        <ih-smart-table class="immiview-ques-client benadd" [settings]="settings" [data]="data"
+                     (onAddClick)="onAddQuestionnaireClick($event)" (onRowClick)="onEditQuestionnaireClick($event)" (onDeleteClick)="onDeleteClientQuestionnaireClick($event)" ></ih-smart-table>
+        <button [(disabled)]="sendQuestionnaire" type="submit" class="btn iportal-btnIMclient pull-right" (click)="sendQuestionnaireClient()" [ngClass]="{'myclass':sendQuestionnaire,'btn iportal-btnIMclient pull-right':!sendQuestionnaire}">Send Questionnaire to client </button>
+        <div class="clearfix"></div>
+        <h2 class="headerinsections" style="margin-top: 20px !important;color: #4EA0F9 !important;margin-bottom: 7px!important;">Immigration Officer</h2>
+         <ih-smart-table class="immiview-ques-emp" [settings]="settings1" [data]="employerData"
+                     (onEditClick)="onEditEmpQuestionnaireClick($event.data)" (onDeleteClick)="onDeleteEmpQuestionniareClick($event)" ></ih-smart-table>
+    </div>
+</div>
+
+
+
+
+<div *ngIf="showAddQuestionnairepopup">
+    <div class="modal-dialog" ngDraggable>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}}</h4>
+                <button type="button" class="close" (click)="close()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-5" *ngIf="addquspopup"><span class="redstar">*</span> Form Name :</div>
+                            <div class="col-md-7" *ngIf="addquspopup">
+                                <select [(ngModel)]="newQuestionnaireitem.formId"  class="form-control" (change)="onItemChanged($event)" [ngClass]="newQuestionnaireitem.formId == '' ? 'redborder': ''">
+                                    <option *ngFor="let x of formsList" [ngValue]="x.applicationFormsId" [selected]="x.applicationFormsId === questionnaire.formId">{{x.formName}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5"><span class="redstar">*</span> Questionnaire Name :</div>
+                            <div class="col-md-7">
+                                <input type="text" [(ngModel)]="newQuestionnaireitem.questionnaireName" class="form-control" [ngClass]="newQuestionnaireitem.questionnaireName == '' ? 'redborder': ''" />
+                            </div>
+                            <div class="col-md-5" *ngIf="editquspopup"><span class="redstar">*</span> Status :</div>
+                            <div class="col-md-7" *ngIf="editquspopup">
+                                <select [(ngModel)]="newQuestionnaireitem.clientStatus" class="form-control">
+                                    <option *ngFor="let x of status">{{x.clientStatus}}</option>
+                                </select>
+                            </div>
+                          </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="row sfm" *ngIf="sfmQuestionnaire">
+                                    <div class="col-md-12">
+                                        <span class="redstar">* Fields are Mandatory.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient"
+	style="color: #008000 !important;margin-top: 4px!important; width: 90%;margin-right: 11px;"[ngClass]="{'loader': saveButtonProgress}" [disabled]="saveButtonProgress"  (click)="onSaveQuestionnaireClick()">Save</button></div>
+                                    <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient"
+	style="color: #FF0000 !important;margin-top: 4px!important; width: 90%;"  (click)="onCancelQuestionnaireClick()">Cancel</button></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showAddEmpQuespopup">
+    <div class="modal-dialog" ngDraggable>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}}</h4>
+                <button type="button" class="close" (click)="close()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-5">Questionnaire Name :</div>
+                            <div class="col-md-7">
+                                <input type="text" [(ngModel)]="questionnaireEmployee.questionnaireName" class="form-control" />
+                            </div>
+                            <div class="col-md-5">Status :</div>
+                            <div class="col-md-7">
+                                <select [(ngModel)]="questionnaireEmployee.employerStatus" class="form-control">
+                                    <option *ngFor="let x of employerStatus">{{x.employerStatus}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+
+                            </div>
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient"
+	style="color: #008000 !important;margin-top: 4px!important; width: 90%;"  (click)="onSaveEmpQuestionniaredeleteQuestionnaire()">Save</button></div>
+                                    <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient"
+	style="color: #FF0000 !important;margin-left: 4px;width: 90%;margin-top: 4px!important;" (click)="onCancelEmpQuestionnaireClick()">Cancel</button></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <div *ngIf="generateFormsPopup">
+      <div class="modal-dialog" ngDraggable>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">{{title}}</h4>
+            <button type="button" class="close" (click)="close()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-5">Do  you want to generate the form as</div>
+                  <div class="col-md-7"><input type="text"  [(ngModel)]="generateFormData.formName" class="form-control"></div>
+                  <div class="col-md-7">
+                    <div class="row">
+                      <div class="col-md-6"><button type="button" class="btn btn-primary" (click)="generateFormSave(generateFormData.formName)">Ok</button></div>
+                      <div class="col-md-6"><button type="button" class="btn btn-default" (click)="generateFormCancel()">Cancel</button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

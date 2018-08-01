@@ -1,0 +1,136 @@
+<div class="main-content">
+    <div class="table-data">
+        <!--<h1 class="clickname" (click)="appService.moveToPage('immigrationview/client/detail/client-details');highlightSBLink('Client Details')">{{appService.clientfirstName}} {{appService.clientlastName}} </h1>
+        <h1 style="float:right;">{{appService.petitionDetails}}</h1>
+        <div class="clearfix"></div>-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a (click)="gotoPrev()" class="prevbtn">Back</a>
+                    </div>
+                    <div class="col-md-4 pagenoof36">Page 17 of 36</div>
+                    <div class="col-md-4">
+                        <a (click)="gotoNext()" class="nextbtn">Save & Continue</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <h2>Complete This Section If Filing for H-2A or H-2B Classification</h2>
+         </div>
+            <div class="col-md-12">
+                <p>The H-2A/H-2B petitioner and each employer consent to allow Government access to the site where the labor is being performed for the purpose of determining compliance with H-2A/H-2B requirements.  The petitioner further agrees to notify DHS beginning on a date and in a manner specified in a notice published in the Federal Register within 2 workdays if: an H-2A/H-2B worker fails to report for work within 5 workdays after the employment start date stated on the petition or, applicable to H-2A petitioners only, within 5 workdays of the start date established by the petitioner, whichever is later; the agricultural labor or services for which H-2A/H-2B workers were hired is completed more than 30 days early; or the H-2A/H-2B worker absconds from the worksite or is terminated prior to the completion of agricultural labor or services for which he or she was hired.  The petitioner agrees to retain evidence of such notification and make it available for inspection by DHS officers for a one-year period.  "Workday" means the period between the time on any particular day when such employee commences his or her principal activity and the time on that day at which he or she ceases such principal activity or activities. </p>
+                <p>For H-2A petitioners only: The petitioner agrees to pay $10 in liquidated damages for each instance where it cannot demonstrate it is in compliance with the notification requirement.</p>
+                <p>The petitioner must execute Part A.  If the petitioner is the employer's agent, the employer must execute Part B.  If there are joint employers, they must each execute Part C.</p>
+                        <div class="col-md-12 addresbox box-shadow clientview-ques129h">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="fieldsetheading">Part A.  Petitioner</p>
+                                    <p>By filing this petition, I agree to the conditions of H-2A/H-2B employment and agree to the notification requirements.  For H-2A petitioners: I also agree to the liquidated damages requirements defined in 8 CFR 214.2(h)(5)(vi)(B)(3).</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">Signature of Petitioner</div>
+                                        <div class="col-md-8"><input type="text" [disabled]="true" /></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">Name of Petitioner</div>
+                                        <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage5.petitionerName" /></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">Date (mm/dd/yyyy)</div>
+                                        <div class="col-md-8">
+                                            <my-date-picker [options]="myDatePickerOptions"
+                                                            [(ngModel)]="I129Hpage5.petitionerDateOfSignature"
+                                                            [selDate]="petitionerDateOfSignature"></my-date-picker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <p class="fieldsetheading">Part B. Employer who is not the petitione</p>
+                                    <p>I certify that I have authorized the party filing this petition to act as my agent in this regard.  I assume full responsibility for all representations made by this agent on my behalf and agree to the conditions of H-2A/H-2B eligibility.</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">Signature of Employer</div>
+                                        <div class="col-md-8"><input type="text" /></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">Name of Employer</div>
+                                        <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage5.employerName"/></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4">Date (mm/dd/yyyy)</div>
+                                        <div class="col-md-8">
+                                            <my-date-picker [options]="myDatePickerOptions"
+                                                            [(ngModel)]="I129Hpage5.employerDateOfSignature"
+                                                            [selDate]="employerDateOfSignature"></my-date-picker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <p class="fieldsetheading">Part B.Joint Employers</p>
+                                    <p>I agree to the conditions of H-2A eligibility.</p>
+                                    <div class="clearfix"></div>
+                                    <table cellpadding="3px" cellspacing="0px" border="1" width="100%" style="margin-bottom:15px;">
+                                        <thead>
+                                            <tr>
+                                                <td width="40%" height="50px" align="left" valign="top">Signature of Joint Employer</td>
+                                                <td width="40%" height="50px" align="left" valign="top">Name of Joint Employer</td>
+                                                <td width="20%" height="50px" align="left" valign="top">Date (mm/dd/yyyy)</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td width="40%" height="50px" align="left" valign="top"><input type="text" /></td>
+                                                <td width="40%" height="50px" align="left" valign="top"><input type="text" [(ngModel)]="I129Hpage5.jointEmployerName1"/></td>
+                                                <td width="20%" height="50px" align="left" valign="top">
+                                                    <my-date-picker [options]="myDatePickerOptions"
+                                                                    [(ngModel)]="I129Hpage5.jointEmployer1DateOfSignature"
+                                                                    [selDate]="jointEmployer1DateOfSignature"></my-date-picker>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%" height="50px" align="left" valign="top"><input type="text" /></td>
+                                                <td width="40%" height="50px" align="left" valign="top"><input type="text" [(ngModel)]="I129Hpage5.jointEmployerName2"/></td>
+                                                <td width="20%" height="50px" align="left" valign="top">
+                                                    <my-date-picker [options]="myDatePickerOptions"
+                                                                    [(ngModel)]="I129Hpage5.jointEmployer2DateOfSignature"
+                                                                    [selDate]="jointEmployer2DateOfSignature"></my-date-picker>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%" height="50px" align="left" valign="top"><input type="text" /></td>
+                                                <td width="40%" height="50px" align="left" valign="top"><input type="text" [(ngModel)]="I129Hpage5.jointEmployerName3"/></td>
+                                                <td width="20%" height="50px" align="left" valign="top">
+                                                    <my-date-picker [options]="myDatePickerOptions"
+                                                                    [(ngModel)]="I129Hpage5.jointEmployer3DateOfSignature"
+                                                                    [selDate]="jointEmployer3DateOfSignature"></my-date-picker>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%" height="50px" align="left" valign="top"><input type="text" /></td>
+                                                <td width="40%" height="50px" align="left" valign="top"><input type="text" [(ngModel)]="I129Hpage5.jointEmployerName4"/></td>
+                                                <td width="20%" height="50px" align="left" valign="top">
+                                                    <my-date-picker [options]="myDatePickerOptions"
+                                                                    [(ngModel)]="I129Hpage5.jointEmployer4DateOfSignature"
+                                                                    [selDate]="jointEmployer4DateOfSignature"></my-date-picker>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>

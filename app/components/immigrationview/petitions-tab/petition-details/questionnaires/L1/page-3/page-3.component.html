@@ -1,0 +1,123 @@
+<div class="main-content">
+  <div class="table-data">
+    <!--<h1 class="clickname" (click)="appService.moveToPage('immigrationview/client/detail/client-details');highlightSBLink('Client Details')">{{appService.clientfirstName}} {{appService.clientlastName}} </h1>
+        <h1 style="float:right;">{{appService.petitionDetails}}</h1>
+        <div class="clearfix"></div>-->
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-4">
+            <a (click)="gotoPrev()" class="prevbtn">Previous</a>
+          </div>
+          <div class="col-md-4 pagenoof36">Page 24 of 36</div>
+          <div class="col-md-4">
+            <a (click)="gotoNext()" class="nextbtn iportal-btnIMclient">Next</a>
+            <a *ngIf="isQuestionnaireEdit" (click)="cancelQuestinnaireEdit()" class="nextbtn iportal-btnIMclient" style="color: #FF0000 !important;">Cancel</a>
+            <a *ngIf="isQuestionnaireEdit" (click)="saveQuestionnaireInformation()" class="nextbtn iportal-btnIMclient" style="color: #008000 !important;">Save</a>
+            <a *ngIf="!isQuestionnaireEdit" (click)="editQuestinnaireForm()" class="nextbtn iportal-btnIMclient">Edit</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 Questionnaireheader">
+        <h2> Complete This Selection If Filing For An Individual Petition (Continued) </h2>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-12 addresbox box-shadow clientview-ques129h" style="margin-bottom:0px;">
+            <div class="col-md-12" style="margin-top: 10px;">
+              <p>Describe the percentage of stock ownership and managerial control of each company that has a qualifying relationship.
+                Provide the Federal Employer Identification Number for each U.S. company that has a qualifying relationship.</p>
+            </div>
+            <div class="col-md-12">
+              <table width='100%' border="1" cellpadding="3" cellspacing="0">
+                <tr>
+                  <td width="50%" align="center" valign="middle">Percentage of company stock ownership and managerial control of each company that has a qualifying relationship</td>
+                  <td width="50%" align="center" valign="middle">Federal Employer Identification Number for each U.S. company that has a qualifying relationship</td>
+                </tr>
+                <tr>
+                  <td><input type="text" class="form-control" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page24.percentageOfCompanyStockOwnership1"/></td>
+                  <td><input type="text" class="form-control" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page24.federalEmployerIdentification1"/></td>
+                </tr>
+                <tr>
+                  <td><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page24.percentageOfCompanyStockOwnership2"/></td>
+                  <td><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page24.federalEmployerIdentification2"/></td>
+                </tr>
+                <tr>
+                  <td><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page24.percentageOfCompanyStockOwnership3"/></td>
+                  <td><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page24.federalEmployerIdentification3"/></td>
+                </tr>
+                <tr>
+                  <td><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page24.percentageOfCompanyStockOwnership4"/></td>
+                  <td><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page24.federalEmployerIdentification4"/></td>
+                </tr>
+                <tr>
+                  <td><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page24.percentageOfCompanyStockOwnership5"/></td>
+                  <td><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page24.federalEmployerIdentification5"/></td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-md-12" style="margin-top: 10px;">
+              <p>Do the companies currently have the same qualifying relationship as they did during the one-year period of
+                the alien's employment with the company abroad.</p>
+            </div>
+            <div class="col-md-12">
+
+              <div class="row">
+                <div class="col-md-2" *ngFor="let x of questions">
+
+                  <label for="">
+                        <input type="radio" name="aliens" [disabled]="!isQuestionnaireEdit" [value]="x.value" [(ngModel)]="page24.doTheCompaniesCurrentlyHaveTheSameQualifyingRelationship"/>
+                        {{x.display}}
+                  </label>
+                </div>
+                <div class="col-md-8">
+                  If no, provide an explanation in Part 9. of Form I-129 that the US Company has the will have a qualifying relationship with
+                  another foreign entity during the full requested period of requested period of stay
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <p>Is the beneficiary coming to the United States to open a new office?</p>
+            </div>
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-2" *ngFor="let x of questions">
+                  <label for="">
+                        <input type="radio" name="newoff" [disabled]="!isQuestionnaireEdit"  [value]="x.value" [(ngModel)]="page24.isTheBeneficiaryComingUSToOpenNewOffice"/>
+                        {{x.display}}
+                      </label>
+                </div>
+                <div class="col-md-8">
+                  (attach explanation)
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <p>If you are seeking L-1B specialized knowledge status for an individual, answer the following question:</p>
+            </div>
+          <div class="col-md-12">
+            <p>Will the beneficiary be stationed primarily offsite (at the worksite of an employer other than the petitioner or its affiliate, subsidiary, or parent)?</p>
+          </div>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2" *ngFor="let x of questions">
+                <label for="">
+                        <input type="radio" name="offsite" [disabled]="!isQuestionnaireEdit"  [value]="x.value" [(ngModel)]="page24.willTheBeneficiaryBeStationedPrimarilyOffsite"/>
+                        {{x.display}}
+                      </label>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-12">
+            <p>If you answered yes to the preceding question, describe how and by whom the beneficiary's work will be controlled and supervised.  Include a description of the amount of time each supervisor is expected to control and supervise the work.  If you need additional space to respond to this question, proceed to Part 9. of the Form I-129, and type or print your explanation.</p>
+          </div>
+          <div class="col-md-12"><textarea rows="6" style="min-height:120px;" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page24.describHowAndByWhomTheBeneficiaryWorkControlled" textarea></textarea>
+
+          </div>
+          <div class="col-md-12">
+            <p>If you answered yes to the preceding question, describe the reasons why placement at another worksite outside the petitioner, subsidiary, affiliate, or parent is needed.  Include a description of how the beneficiary's duties at another worksite relate to the need for the specialized knowledge he or she possesses.  If you need additional space to respond to this question, proceed to Part 9. of the Form I-129, and type or print your explanation.</p>
+          </div>
+          <div class="col-md-12"><textarea rows="6" style="min-height:120px;" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page24.reasonsWhyPlacementAtAnotherWorksiteOutsidePetitioner"></textarea></div>
+        </div>
+      </div>
+  </div>
+</div>

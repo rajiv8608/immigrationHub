@@ -1,0 +1,205 @@
+<div class="main-content">
+  <div class="table-data-forms">
+    <h1 class="clickname" (click)="appService.moveToPage('immigrationview/client/detail/client-details');highlightSBLink('Client Details')">
+        <img style="margin-bottom: 4px !important;" src="../../../../assets/images/Group984.png" />&nbsp;&nbsp;&nbsp;<span>{{appService.clientfirstName}} {{appService.clientlastName}}</span> </h1>
+      <div class="clearfix"></div>
+      <h2 class="headerinsections" style="margin-top: 0px !important;color: #4EA0F9 !important;margin-bottom: 7px!important;">Beneficiary Details
+          <button type="submit" class="iportal-btnIMclient pull-right" style="margin-top: -6px!important;" [ngClass]="{'disableClass':disableSendInvite,'pull-right iportal-btnIMclient':!disableSendInvite}"
+                  [disabled]="disableSendInvite" (click)="sendInvite($event)">
+              Send Invite
+          </button>
+      </h2>
+    <div class="clearfix"></div>
+          <div class="col-md-6 col-sm-6 col-xs-12 no-pad-left" style="margin-top: 12px !important;">
+              <div class="col-md-12 addresbox box-shadow">
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <h2>Profile</h2>
+                          <button type="submit" class="iportal-btnIMclient" style="float: right !important;margin: -30px 0 20px 0 !important;" id="ivClientDtlsEdit"(click)="editProfileForm()" *ngIf="isProfileEdit==true">
+                              Edit
+                          </button>
+                          <div class="tbl-head-btn" [hidden]="isProfileEdit">
+                              <button type="button" (click)="cancelProfileEdit()" class="editbtn tbl-head-btn iportal-btnIMclient" style="color: #FF0000 !important;margin-left: 4px;" id="ivClientDtlsCancel" *ngIf="isProfileEdit==false">Cancel</button>
+                              <button type="submit" value="Save" id="ivClientDtlsSave" style="color: #008000 !important; width: 65px;" [ngClass]="getProfileSaveButtonClass()" [disabled]="isProfileSaveButtonDisabled()" (click)="saveClientProfile()" *ngIf="isProfileEdit==false">Save</button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row" *ngIf="warningMessage">
+                      <div class="col-md-12">
+                          <span class="redstar">* Fields are Mandatory.</span>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsFileNo">File Number<span class="redstar">*</span></label></div>
+                      <div class="col-md-8">
+                          <input type="text"  maxlength="100" [disabled]="true"  id="ivClientDtlsFileNo"  [(ngModel)]="clientProfile.fileNumber"
+                                 [ngClass]="clientProfile.fileNumber == '' ? 'redborder': ''" />
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsStatus">Status<span class="redstar">*</span></label></div>
+                      <div class="col-md-8">
+                          <select   [disabled]="isProfileEdit" [(ngModel)]="client.clientStatus" [ngClass]="client.clientStatus == '' ? 'redborder': ''">
+                              <option *ngFor="let clientstatus of status" id="{{clientstatus.name}}">{{clientstatus.name}}</option>
+                          </select>
+
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsEmail">Email<span class="redstar">*</span></label></div>
+                      <div class="col-md-8">
+                          <input  maxlength="100" type="text" id="ivClientDtlsEmail"  [disabled]="true"  [(ngModel)]="clientProfile.email" [ngClass]="clientProfile.email == '' ? 'redborder': ''" />
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsFName">First Name<span class="redstar">*</span></label></div>
+                      <div class="col-md-8">
+                          <input  maxlength="45"  type="text" [disabled]="isProfileEdit" id="ivClientDtlsFName" [(ngModel)]="clientProfile.firstName" [ngClass]="clientProfile.firstName == '' ? 'redborder': ''" />
+
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="wa-state">Middle Name</label></div>
+                      <div class="col-md-8">
+                          <input  maxlength="45"  type="text" [disabled]="isProfileEdit" id="wa-state" [(ngModel)]="clientProfile.middleName" />
+
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsLName">Last Name<span class="redstar">*</span></label></div>
+                      <div class="col-md-8">
+                          <input  maxlength="45"  type="text" [disabled]="isProfileEdit" id="ivClientDtlsLName" [(ngModel)]="clientProfile.lastName" [ngClass]="clientProfile.lastName == '' ? 'redborder': ''" />
+
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsPhone">Phone Number<span class="redstar">*</span>  </label></div>
+                      <div class="col-md-8">
+                          <input  maxlength="15"  type="text" [attr.disabled]="isProfileEdit?'':null" id="ivClientDtlsPhone" [formControl]="phoneNumber" [(ngModel)]="clientProfile.phoneNumber"
+                                 [ngClass]="clientProfile.phoneNumber == '' ? 'redborder': ''" />
+                      </div>
+                  </div>
+                  <div class="row sfm" *ngIf="isProfileEdit==false && phoneNumber != null && phoneNumber.errors">
+                      <div class="col-md-12">
+                          <div class="redstar" *ngIf="phoneNumber.errors != null && phoneNumber.errors.required">
+                              * Phone Number is required
+                          </div>
+                          <div class="redstar" *ngIf="phoneNumber.errors != null && phoneNumber.errors.pattern">
+                              * Invalid Phone Number
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsCreatedBy">Created By</label></div>
+                      <div class="col-md-8">
+                          <input  maxlength="100"  type="text" id="ivClientDtlsCreatedBy" [disabled]="true"  [(ngModel)]="clientProfile.createdByUserOn" />
+
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsupdatedBy">Last Updated By</label></div>
+                      <div class="col-md-8">
+                          <input  maxlength="100"  type="text" [disabled]="true" id="ivClientDtlsupdatedBy"  [(ngModel)]="clientProfile.lastUpdatedByUserOn" />
+
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsForDelete">Mark for Deletion</label></div>
+                      <div class="col-md-8">
+                          <select     [disabled]="isProfileEdit" [(ngModel)]="clientProfile.markForDeletion">
+                              <option value="true" id="ivClientDtlsForDeleteYes">Yes</option>
+                              <option value="false" id="ivClientDtlsForDeleteNo">No</option>
+                          </select>
+
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsForDeleteBy">Marked For Deletion By</label></div>
+                      <div class="col-md-8">
+                          <input  maxlength="100"  type="text" id="ivClientDtlsForDeleteBy" [disabled]="true"  [(ngModel)]="clientProfile.deletedByUserOn" />
+
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <div class="tbl-head-btn" [hidden]="isProfileEdit">
+                              <button type="button" (click)="cancelProfileEdit()" id="ivClientDtlsCancel1" class="editbtn tbl-head-btn iportal-btnIMclient" style="color: #FF0000 !important;margin-left: 4px;margin-top: unset!important;" *ngIf="isProfileEdit==false">Cancel</button>
+                              <button type="submit" id="ivClientDtlsSave1" value="Save" [ngClass]="getProfileSaveButtonClass()" [disabled]="isProfileSaveButtonDisabled()" style="margin-top: unset!important;color: #008000 !important;width: 65px;" (click)="saveClientProfile()" *ngIf="isProfileEdit==false">Save</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 12px !important;">
+              <div class="col-md-12 addresbox box-shadow">
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <h2>Personal Info</h2>
+                          <button type="submit" id="ivClientDtlsPinfoEdit" class="iportal-btnIMclient" style="float: right !important;margin: -30px 0 20px 0 !important;" (click)="editPersonalInfoForm()" *ngIf="isPersonalInfoEdit==true">
+                              Edit
+                          </button>
+                          <div class="tbl-head-btn" [hidden]="isPersonalInfoEdit">
+                              <button type="button" (click)="cancelPersonalInfoEdit()" id="ivClientDtlsCancel2" class="editbtn tbl-head-btn iportal-btnIMclient" style="color: #FF0000 !important;margin-left: 4px;" *ngIf="isPersonalInfoEdit==false">Cancel</button>
+                              <button type="submit" value="Save" class="editbtn tbl-head-btn iportal-btnIMclient" style="color: #008000 !important;width: 65px;" id="ivClientDtlsSave2" [ngClass]="{'loader': showPersonalInfoSaveButtonProgress}" [disabled]="showPersonalInfoSaveButtonProgress" (click)="saveClientPersonalInfo()" *ngIf="isPersonalInfoEdit==false">Save</button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsPinfoGender">Gender</label></div>
+                      <div class="col-md-8">
+                          <select [disabled]="isPersonalInfoEdit"   [(ngModel)]="clientPersonalInfo.gender">
+                              <option *ngFor="let genderTypes of gender" id="{{genderTypes.name}}">{{genderTypes.name}}</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsPinfoDob">Date Of Birth</label></div>
+                      <div class="col-md-8">
+                          <my-date-picker [disabled]="isPersonalInfoEdit" [options]="myDatePickerOptions" [(ngModel)]="clientPersonalInfo.dateOfBirth" [selDate]="dateOfBirth" id="ivClientDtlsPinfoDob"></my-date-picker>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsPinfoSsn">U.S. Social Security Number (if any)</label></div>
+                      <div class="col-md-8"><input type="text"  maxlength="9" [disabled]="isPersonalInfoEdit" id="ivClientDtlsPinfoSsn" [(ngModel)]="clientPersonalInfo.ssn" /></div>
+                  </div>
+                  <div class="row sfm" *ngIf="isPersonalInfoEdit==false && ssn != null && ssn.errors">
+                      <div class="col-md-12">
+                          <div class="redstar" *ngIf="ssn.errors.pattern">
+                              * Invalid SSN Number(Can contain only digits and -)
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsPinfoAlienRegNo">Alien Registration Number</label></div>
+                      <div class="col-md-8"><b>A-</b><input type="text" style="width: 96% !important;" maxlength="9"  [disabled]="isPersonalInfoEdit" id="ivClientDtlsPinfoAlienRegNo" [(ngModel)]="clientPersonalInfo.aleinRegistrationNumber" /></div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsPinfoCOB">Country of Birth</label></div>
+                      <div class="col-md-8">
+                          <input type="text"  maxlength="20"  [disabled]="isPersonalInfoEdit" id="ivClientDtlsPinfoCOB" [(ngModel)]="clientPersonalInfo.countryOfBirth" />
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsPinfoSOB">State/Province of Birth</label></div>
+                      <div class="col-md-8">
+                          <input type="text"  maxlength="20" [disabled]="isPersonalInfoEdit" id="ivClientDtlsPinfoSOB" [(ngModel)]="clientPersonalInfo.stateOfBirth" />
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4"><label for="ivClientDtlsPinfoCitizen">Country of Citizenship or Nationality</label></div>
+                      <div class="col-md-8">
+                          <input type="text"  maxlength="20" [disabled]="isPersonalInfoEdit" id="ivClientDtlsPinfoCitizen" [(ngModel)]="clientPersonalInfo.citizenship" />
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-12">
+                          <div class="tbl-head-btn" [hidden]="isPersonalInfoEdit">
+                              <button type="button" (click)="cancelPersonalInfoEdit()" ivClientDtlsPinfoCancel2 class="editbtn tbl-head-btn iportal-btnIMclient" style="color: #FF0000 !important;margin-left: 4px;    margin-top: 0px!important;" *ngIf="isPersonalInfoEdit==false">Cancel</button>
+                              <button type="submit" value="Save" id="ivClientDtlsPinfoSave2" class="editbtn tbl-head-btn iportal-btnIMclient" style="margin-top: 0px!important;color: #008000 !important; width: 65px;" [ngClass]="{'loader': showPersonalInfoSaveButtonProgress}" [disabled]="showPersonalInfoSaveButtonProgress" (click)="saveClientPersonalInfo()" *ngIf="isPersonalInfoEdit==false">Save</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+</div>

@@ -1,0 +1,193 @@
+<div class="main-content" *ngIf="getData">
+    <!--<ul class="breadcrumb">
+        <li><a href="#">Clients</a></li>
+        <li><a href="#">Visas</a></li>
+    </ul>
+    <div class="clearfix"></div>-->
+    <div class="table-data">
+      <h2 _ngcontent-c6="" class="headerinsections" style="margin-top: 0px !important;color: #4EA0F9 !important;margin-bottom: 7px!important;">Products</h2>
+        <ih-smart-table class="acctabprodcatProducts benadd" [settings]="settings" [data]="data"  [paginationData]="paginationData"
+                     (onAddClick)="addProducts($event)" (onRowClick)="viewDetails($event)" (dataWithQueryParams)="dataWithParameters($event)"></ih-smart-table>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div *ngIf="viewPopup">
+    <div class="modal-dialog"  style="margin-top:7% !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}}</h4>
+
+                <button type="button" class="close" (click)="close()" id="svprodClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12 addresbox box-shadow" style="padding: 0px;">
+                                <div class="col-md-6" style="padding: 0px;">
+                                    <div class="col-md-4">Name:</div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="100" id="svprodName" [disabled]="isEditProducts" [(ngModel)]="product.name"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0px;">
+                                    <div class="col-md-4">Code:</div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="100" id="svprodCode" [disabled]="isEditProducts" [(ngModel)]="product.code"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0px;">
+                                    <div class="col-md-4">Description:</div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="100" id="svprodDes" [disabled]="isEditProducts" [(ngModel)]="product.description" class="form-control">
+                                       
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0px;">
+                                    <div class="col-md-4">Max Users:</div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="svprodMaxUser" maxlength="100" [disabled]="isEditProducts" [(ngModel)]="product.maxUsers" class="form-control">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0px;">
+                                    <div class="col-md-4">Max Clients/Month:</div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="svprodMaxClients" maxlength="100" [disabled]="isEditProducts" [(ngModel)]="product.maxClientsPerMonth"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0px;">
+                                    <div class="col-md-5">Max Petitions/Month:</div>
+                                    <div class="col-md-7">
+                                        <input type="text" id="svprodMaxPet" maxlength="100" [disabled]="isEditProducts" [(ngModel)]="product.maxPetitionsPerMonth"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0px;">
+                                    <div class="col-md-4">Max S3 Storage:</div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="svprodMaxStorage" maxlength="100" [disabled]="isEditProducts" [(ngModel)]="product.maxS3Storage" class="form-control">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0px;">
+                                    <div class="col-md-4">Cost:</div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="svprodCost" maxlength="100" [disabled]="isEditProducts" [(ngModel)]="product.cost" class="form-control">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0px;">
+                                    <div class="col-md-4">Type:</div>
+                                    <div class="col-md-8">
+                                        <select [disabled]="isEditProducts" [(ngModel)]="product.productType" class="form-control">
+                                            <option [value]="x.value" *ngFor="let x of typeValues" id="{{x.name}}">{{x.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0px;">
+                                  <div class="col-md-4">Validation Type:</div>
+                                  <div class="col-md-8">
+                                    <select [disabled]="isEditProducts" [(ngModel)]="product.validationType" class="form-control">
+                                      <option [value]="x.value" *ngFor="let x of validationTypeValues" id="{{x.name}}">{{x.name}}</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0px;">
+                                    <div class="col-md-4">Status:</div>
+                                    <div class="col-md-8">
+                                        <select [disabled]="isEditProducts" [(ngModel)]="product.status" class="form-control">
+                                            <option value="Active" id="svprodStatusAct">Active</option>
+                                            <option value="Inactive" id="svprodStatusInAct">Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding: 0px;">
+                                    <div class="col-md-4">Created On:</div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="svprodCreatedOn" [disabled]="isEditProducts" [(ngModel)]="product.createdOn"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="row sfm" *ngIf="warningMessage">
+                                            <div class="col-md-12">
+                                                <span class="redstar">* Fields are Mandatory.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                            <div class="col-md-6">
+                                                <button type="submit" class="btn iportal-btnIMclient" id="svprodEdit" style="color: #008000 !important;margin-left:2em !important;" (click)="editProductInfo()" *ngIf="isEditProducts==true">Edit</button>
+                                                <button type="submit" value="Save" class="editbtn tbl-head-btn iportal-btnIMclient" id="svprodSave" [ngClass]="{'loader': showWorkAddrSaveButtonProgress}" [disabled]="showWorkAddrSaveButtonProgress" (click)="saveProductInfo()" style="margin-right:2em!important;" *ngIf="isEditProducts==false">Save</button>
+                                            </div>
+                                            <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient" style="color: #FF0000 !important;margin-right: 1px !important;" id="svprodCancel" (click)="cancel()">Cancel</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div *ngIf="addPopup">
+    <div class="modal-dialog" ngDraggable>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}}</h4>
+                <button type="button" class="close" (click)="close()" id="svprodPopClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-5">Name:<span class="redstar">*</span></div>
+                            <div class="col-md-7"><input type="text" id="svprodPopName" [(ngModel)]="addProduct.name" class="form-control"></div>
+                            <div class="col-md-5">Code:<span class="redstar">*</span></div>
+                            <div class="col-md-7"><input type="text" id="svprodPopCode" [(ngModel)]="addProduct.code" class="form-control"></div>
+                            <div class="col-md-5">Cost:<span class="redstar">*</span></div>
+                            <div class="col-md-7"><input type="text"  id="svprodPopCost" [(ngModel)]="addProduct.cost" class="form-control"></div>
+                          <div class="col-md-5">Max Orgs:<span class="redstar">*</span></div>
+                          <div class="col-md-7"><input type="text"  id="svprodPopMaxOrgs" [(ngModel)]="addProduct.maxOrgs" class="form-control"></div>
+                            <div class="col-md-5">Type:<span class="redstar">*</span></div>
+                            <div class="col-md-7">
+                                <select [(ngModel)]="addProduct.productType" class="form-control">
+                                    <option [value]="x.value" *ngFor="let x of typeValues" id="{{x.name}}">{{x.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="row sfm" *ngIf="warningMessage">
+                                    <div class="col-md-12">
+                                        <span class="redstar">* Fields are Mandatory.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient" 
+	style="color: #008000 !important;margin-top: 4px!important; width: 100%;margin-right: 0%;" id="svprodPopSave" [ngClass]="{'loader': showWorkAddrSaveButtonProgress}" [disabled]="showWorkAddrSaveButtonProgress" (click)="saveProduct()">Save</button></div>
+                                    <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient" 
+	style="color: #FF0000 !important;margin-left: 4px;width: 100%;margin-top: 4px!important;" id="svprodPopCancel" (click)="cancel()">Cancel</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,387 @@
+<div *ngIf="appService.showHeader">
+  <header *ngIf="header">
+      <div class="topstripNew">
+          <div class="mainContainer">
+              <div class="col-md-6 pull-left no-pad">
+                  <div class="logo">
+                      <a (click)="onLogoClick()">
+                          <img src="assets/images/Logo-portal.png" />
+                      </a>
+                  </div>
+                  <div class="datails-holder-name"
+                       *ngIf="appService.isImmigrationView()">
+                      <div class="pull-left" *ngIf="headerService.selectedOrg">
+                          <h4>{{headerService.selectedOrg.displayName}}</h4>
+                      </div>
+                      <div class="pull-left">
+                          <a class="ico-edit" (click)="editorgname(orgSelect)"></a>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6 pull-left no-pad">
+                  <div class="profile-container pull-right" style="position:relative;">
+                      <div class="profile">
+                          <div class="profile-name">
+                              <h4>{{user.firstName}} {{user.lastName}}</h4>
+                              <h6>{{getRoleName()}}</h6>
+                          </div>
+                            <div class="profile-pic">
+                                <img src="assets/images/user_icon.png" alt="profile-img">
+                            </div>
+                          <a class="logoutbtn" (click)="logOut()">
+                              <i class="fa fa-power-off" aria-hidden="true"></i>
+                          </a>
+                      </div>
+
+                      <!--<button *ngIf="appService.isImmigrationView()" type="submit" class="btn iportal-btnIMclient" style="position: absolute;right: 0px;bottom: -65px;z-index:9999;" (click)="usageSummery = !usageSummery">Usage Summary</button>-->
+                      <div class="usagesummery" style="" *ngIf="usageSummery">
+                          <div class="usheader">
+                              <h2>Account Usage Summary </h2>
+                              <button type="button" class="close" (click)="onUsageSummaryClose()">&times;</button>
+                              <!--<i class="fa fa-times" aria-hidden="true"></i>-->
+
+                              <div class="row">
+                                  <div class="col-md-4">Plan Name</div>
+                                  <div class="col-md-8">{{headerComponentService.usageSummaryDetails.productName}}</div>
+                                  <div class="clear"></div>
+                                  <div class="col-md-4">Plan Code</div>
+                                  <div class="col-md-8">{{headerComponentService.usageSummaryDetails.productCode}}</div>
+                                  <div class="clear"></div>
+                                <div class="col-md-4">Storage Type</div>
+                                <div class="col-md-8">{{headerComponentService.usageSummaryDetails.storageType}}</div>
+                                <!--<div class="col-md-8">S3 <a href="" class="upgrade pull-right">Upgrade</a></div>-->
+                                <div class="clear"></div>
+                              </div>
+                          </div>
+                          <div class="usbody">
+                              <div class="row headings">
+                                  <div class="col-md-5">Features</div>
+                                  <div class="col-md-7">
+                                      <div class="row ">
+                                          <div class="col-md-6">Used</div>
+                                          <div class="col-md-6 text-right">Allowed</div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row usitem">
+                                  <div class="col-md-5">Immigration Users</div>
+                                  <div class="col-md-7">
+                                      <div class="progress" style="margin-bottom: 0;">
+                                          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': headerComponentService.usageSummaryDetails.usersUsed/headerComponentService.usageSummaryDetails.usersAllowed * 100 + '%'}"></div>
+                                      </div>
+                                      <div class="row ">
+                                          <span class="col-md-6">{{headerComponentService.usageSummaryDetails.usersUsed}}</span>
+                                          <span class="col-md-6 text-right">{{headerComponentService.usageSummaryDetails.usersAllowed}}</span>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row usitem">
+                                  <div class="col-md-5">Petitioners</div>
+                                  <div class="col-md-7">
+                                      <div class="progress" style="margin-bottom: 0;">
+                                          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': headerComponentService.usageSummaryDetails.orgUsed/headerComponentService.usageSummaryDetails.orgAllowed * 100 + '%'}"></div>
+                                      </div>
+                                      <div class="row ">
+                                          <span class="col-md-6">{{headerComponentService.usageSummaryDetails.orgUsed}}</span>
+                                          <span class="col-md-6 text-right">{{headerComponentService.usageSummaryDetails.orgAllowed}}</span>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row usitem">
+                                  <div class="col-md-5">Beneficiaries</div>
+                                  <div class="col-md-7">
+                                      <div class="progress" style="margin-bottom: 0;">
+                                          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': headerComponentService.usageSummaryDetails.clientsUsed/headerComponentService.usageSummaryDetails.clientsAllowed * 100 + '%'}"></div>
+                                      </div>
+                                      <div class="row ">
+                                          <span class="col-md-6">{{headerComponentService.usageSummaryDetails.clientsUsed}}</span>
+                                          <span class="col-md-6 text-right">{{headerComponentService.usageSummaryDetails.clientsAllowed}}</span>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row usitem">
+                                  <div class="col-md-5">Petitions</div>
+                                  <div class="col-md-7">
+                                      <div class="progress" style="margin-bottom: 0;">
+                                          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': headerComponentService.usageSummaryDetails.petitionsUsed/headerComponentService.usageSummaryDetails.petitionsAllowed * 100 + '%'}"></div>
+                                      </div>
+                                      <div class="row ">
+                                          <span class="col-md-6">{{headerComponentService.usageSummaryDetails.petitionsUsed}}</span>
+                                          <span class="col-md-6 text-right">{{headerComponentService.usageSummaryDetails.petitionsAllowed}}</span>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row usitem">
+                                  <div class="col-md-5">Storage</div>
+                                  <div class="col-md-7">
+                                      <div class="progress" style="margin-bottom: 0;">
+                                          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': headerComponentService.usageSummaryDetails.storageUsed/headerComponentService.usageSummaryDetails.storageAllowed * 100 + '%'}"></div>
+                                      </div>
+                                      <div class="row ">
+                                          <span class="col-md-6">{{headerComponentService.usageSummaryDetails.storageUsed}}</span>
+                                          <span class="col-md-6 text-right">{{headerComponentService.usageSummaryDetails.storageAllowed}}</span>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </div>
+                      </div>
+                      <!--<button *ngIf="appService.isImmigrationView()" type="submit" class="btn iportal-btnIMclient" style="position: absolute;right: 0px;bottom: -65px;z-index:9999;" (click)="onUsageSummaryClick()">Usage Summary</button>-->
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="tabsMenu">
+          <div class="mainContainer">
+              <div class="mainmenu">
+                  <div *ngIf="appService.isBurgerMenuVisible" class="burger-menu">
+                      <input type="checkbox" (click)="slideMenu()" /><label></label>
+                  </div>
+                  <ul *ngIf="appService.isImmigrationView()" id="MainMenuListItems">
+                      <li *ngIf="!headerService.isDelegatedOrg()" >
+                          <a (click)="appService.moveToPage(getImmigrationViewClientsTabPath()); highlightTab(getImmigrationViewClientsTabPath());"
+                             [ngClass]="[checkForCurrentTab(getImmigrationViewClientsTabPath()) ? 'active': '']"
+                             routerLinkActive="active" style="height:20px;width:66px;">
+                              <img src="../../../../assets/images/Clients.png" />
+                              <div class="clearfix"></div> <span> Beneficiary</span>
+                          </a>
+                      </li>
+                      <li *ngIf="appService.isImmigrationView() || headerService.isDelegatedOrg()">
+                          <a (click)="appService.moveToPage('immigrationview/tab/petitions'); highlightTab('immigrationview/tab/petitions');"
+                             [ngClass]="[checkForCurrentTab('immigrationview/tab/petitions') ? 'active': '']"
+                             routerLinkActive="active" style="height:20px;width:52px;">
+                              <img src="../../../../assets/images/Petitions.png" />
+
+                              <div class="clearfix"></div> <span> Petitions</span>
+                          </a>
+                      </li>
+                      <li *ngIf="!headerService.isDelegatedOrg()" >
+                          <a (click)="appService.moveToPage('immigrationview/organization/details'); highlightTab('organization');highlightSBLink('Org Details');"
+                             [ngClass]="[checkForCurrentTab('organization') ? 'active' : '']"
+                             routerLinkActive="active" style="width: 66px;height: 20px;">
+                              <img src="../../../../assets/images/Organization.png" />
+                              <div class="clearfix"></div> <span> Petitioner</span>
+                          </a>
+                      </li>
+                      <!--<li><a (click)="appService.moveToPage('reports'); highlightTab('reports'); "     [ngClass]="[checkForCurrentTab('reports') ? 'active' : '']"   routerLinkActive="active">Reports</a></li>-->
+                      <li *ngIf="user.roleName === applicationRoles.IMMIGRATION_MANAGER" >
+                          <a (click)="appService.moveToPage('immigrationview/manageaccount/user');highlightTab('manageaccount-user');highlightSBLink('User');"
+                             [ngClass]="[checkForCurrentTab('manageaccount-user') ? 'active': '']"
+                             routerLinkActive="active" style="height:20px;width:51px;">
+                              <img src="../../../../assets/images/manage.png" />
+                              <div class="clearfix"></div> <span> Settings</span>
+                          </a>
+                      </li>
+                      <li *ngIf="!headerService.isDelegatedOrg()">
+                          <a (click)="appService.moveToPage('immigrationview/reports/petition/status'); highlightTab('immiview-petitionreports');highlightSBLink('immiview-petitionreports');"
+                             [ngClass]="[checkForCurrentTab('immiview-petitionreports') ? 'active' : '']"
+                             routerLinkActive="active" style="height:20px;width:49px;">
+                              <img src="../../../../assets/images/Reports.png" />
+                              <div class="clearfix"></div> <span> Reports</span>
+                          </a>
+                      </li>
+                      <li>
+                          <a (click)="appService.moveToPage('profile/user'); highlightTab('profile/user');highlightSBLink('profile/user');"
+                             [ngClass]="[checkForCurrentTab('profile/user') ? 'active' : '']"
+                             routerLinkActive="active" style="height:20px;width:40px;">
+                              <img src="../../../../assets/images/Profile.png" />
+                              <div class="clearfix"></div> <span> Profile</span>
+                          </a>
+                      </li>
+                      <li>
+                          <button *ngIf="appService.isImmigrationView()" type="submit" class="btn iportal-btnIMclient"
+                          style="position: absolute;right: 0px;bottom: 0px;" (click)="onUsageSummaryClick()">Usage Summary</button>
+                      </li>
+
+                  </ul>
+                  <ul *ngIf="appService.isClientView()" id="MainMenuListItems">
+                      <li>
+                          <a (click)="appService.moveToPage('clientview/petitions'); highlightTab('clientview/petitions');"
+                             [ngClass]="[checkForCurrentTab('clientview/petitions') ? 'active': '']"
+                             routerLinkActive="active">
+                              <!--<span class="maintab-Petitions"></span>-->
+                              <img class="imgg" src="../../../../assets/images/Petitions.png" />
+                              <span>Petitions</span>
+                              <!--<div class="arrow-up"></div>-->
+                          </a>
+                      </li>
+                      <li>
+                          <a (click)="appService.moveToPage('clientview/client/details'); highlightTab('clientview/client/details');highlightSBLink('ClientDetails');"
+                             [ngClass]="[checkForCurrentTab('clientview/client/details') ? 'active': '']"
+                             routerLinkActive="active">
+                              <!--<span class="maintab-clientdetails"></span>-->
+                              <img class="imgg" src="../../../../assets/images/Client Details.png" />
+                              <span >Beneficiary Details</span>
+                              <!--<div class="arrow-up"></div>-->
+                          </a>
+                      </li>
+                      <li>
+                          <a (click)="appService.moveToPageWithParams('clientview/documents',''); highlightTab('clientview/documents');"
+                             [ngClass]="[checkForCurrentTab('clientview/documents') ? 'active': '']"
+                             routerLinkActive="active">
+                              <!--<span class="maintab-clientdocuments"></span>-->
+                              <img class="imgg" src="../../../../assets/images/Documents.png" />
+                              <span>Documents</span>
+                              <!--<div class="arrow-up"></div>-->
+                          </a>
+                      </li>
+                      <li>
+                          <a (click)="appService.moveToPage('clientview/questionnaries'); highlightTab('clientview/questionnaries');highlightSBLink('Questionnaires');"
+                             [ngClass]="[checkForCurrentTab('clientview/questionnaries') ? 'active': '']"
+                             routerLinkActive="active">
+                              <!--<span class="maintab-clientQuestionnaire"></span>-->
+                              <img class="imgg" src="../../../../assets/images/Questionnaire_clint.png" />
+                               <span>Questionnaire</span>
+                              <!--<div class="arrow-up"></div>-->
+                          </a>
+                      </li>
+                      <li>
+                          <a (click)="appService.moveToPage('clientview/requests'); highlightTab('clientview/requests');"
+                             [ngClass]="[checkForCurrentTab('clientview/requests') ? 'active': '']"
+                             routerLinkActive="active">
+                              <img class="imgg" src="../../../../assets/images/Request_clint.png" />
+                               <span>Requests</span>
+                              <!--<div class="arrow-up"></div>-->
+                          </a>
+                      </li>
+                      <li>
+                          <a (click)="appService.moveToPage('profile/user'); highlightTab('profile/user');highlightSBLink('profile/user');"
+                             [ngClass]="[checkForCurrentTab('profile/user') ? 'active' : '']"
+                             routerLinkActive="active">
+                              <!--<span class="maintab-Profile"></span>-->
+                              <img class="imgg" src="../../../../assets/images/Profile.png" />
+                              <span>Profile</span>
+                              <!--<div class="arrow-up"></div>-->
+                          </a>
+                      </li>
+
+                  </ul>
+                  <ul *ngIf="appService.isSuperUserView()" id="MainMenuListItems">
+                      <li>
+                          <a (click)="appService.moveToPage('superuserview/tab/accounts'); highlightTab('superuserview/tab/accounts');"
+                             [ngClass]="[checkForCurrentTab('superuserview/tab/accounts') ? 'active': '']"
+                             routerLinkActive="active">
+                            <img class="imgg" src="../../../../assets/images/Profile.png" />
+                            <span>Accounts</span>
+                          </a>
+                      </li>
+                      <li>
+                          <a (click)="appService.moveToPage('superuserview/productcatalog'); highlightTab('ProductCatalog');"
+                             [ngClass]="[checkForCurrentTab('ProductCatalog') ? 'active': '']"
+                             routerLinkActive="active">
+                            <img class="imgg" src="../../../../assets/images/Supprocat.png" />
+                            <span>Product Catalog</span>
+                          </a>
+                      </li>
+                      <li>
+                          <a (click)="appService.moveToPage('superuserview/tab/invoices'); highlightTab('superuserview/tab/invoices');"
+                             [ngClass]="[checkForCurrentTab('superuserview/tab/invoices') ? 'active': '']"
+                             routerLinkActive="active">
+                            <img class="imgg" src="../../../../assets/images/Supinvoice.png" />
+                            <span>Invoices</span>
+                          </a>
+                      </li>
+                      <li>
+                          <a (click)="appService.moveToPage('superuserview/tab/payments'); highlightTab('superuserview/tab/payments');"
+                             [ngClass]="[checkForCurrentTab('superuserview/tab/payments') ? 'active': '']" routerLinkActive="active">
+                            <img class="imgg" src="../../../../assets/images/Suppay.png" />
+                            <span>Payments</span>
+                          </a>
+                      </li>
+                      <li>
+                          <a (click)="appService.moveToPage('superuserview/reports/stats/accounts'); highlightTab('superuserview/reports/stats/accounts');highlightSBLink('superuserview/reports/stats/accounts');"
+                             [ngClass]="[checkForCurrentTab('superuserview/reports/stats/accounts') ? 'active' : '']"
+                             routerLinkActive="active">
+                            <img class="imgg" src="../../../../assets/images/Reports.png" />
+                            <span>Reports</span>
+                          </a>
+                      </li>
+                      <li>
+                          <a (click)="appService.moveToPage('superuserview/misc/demorequest'); highlightTab('superuserview/misc/demorequest');highlightSBLink('superuserview/misc/demorequest');"
+                             [ngClass]="[checkForCurrentTab('superuserview/misc/demorequest') ? 'active' : '']"
+                             routerLinkActive="active">
+                            <img class="imgg" src="../../../../assets/images/Misc.png" />
+                            <span>Misc</span>
+                          </a>
+                      </li>
+                      <li>
+                          <a (click)="appService.moveToPage('profile/user'); highlightTab('profile/user');highlightSBLink('profile/user');"
+                             [ngClass]="[checkForCurrentTab('profile/user') ? 'active' : '']"
+                             routerLinkActive="active">
+                            <img class="imgg" src="../../../../assets/images/Profile.png" />
+                            <span>Profile</span>
+                          </a>
+                      </li>
+                  </ul>
+                  <div class="clearfix"></div>
+              </div>
+          </div>
+          </div>
+  </header>
+
+  <!--<div *ngIf="usageSummaryPopup">
+    <div class="modal-dialog" ngDraggable>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{title}}</h4>
+          <button type="button" class="close" (click)="close()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <table style="margin-left:10px">
+                  <tr>
+                    <td>Plan Name:</td>
+                    <td>Plan-Premium</td>
+                  </tr>
+                  <tr>
+                    <td>Plan Code:</td>
+                    <td>P-200</td>
+                  </tr>
+                  <tr>
+                    <td>Storage Type:</td>
+                    <td>S3</td>
+                  </tr>
+                </table>
+                <table width="95%" border="2px" style="margin:20px 0 0 10px">
+                  <tr>
+                    <th>Feature</th>
+                    <th>Allowed</th>
+                    <th>Used</th>
+                  </tr>
+                  <tr>
+                    <td>Immigration Users</td>
+                    <td>{{headerComponentService.usageSummaryDetails.usersAllowed}}</td>
+                    <td>{{headerComponentService.usageSummaryDetails.usersUsed}}</td>
+                  </tr>
+                  <tr>
+                    <td>Organizations</td>
+                    <td>{{headerComponentService.usageSummaryDetails.orgAllowed}}</td>
+                    <td>{{headerComponentService.usageSummaryDetails.orgUsed}}</td>
+                  </tr>
+                  <tr>
+                    <td>Clients</td>
+                    <td>{{headerComponentService.usageSummaryDetails.clientsAllowed}}</td>
+                    <td>{{headerComponentService.usageSummaryDetails.clientsUsed}}</td>
+                  </tr>
+                  <tr>
+                    <td>Petition</td>
+                    <td>{{headerComponentService.usageSummaryDetails.petitionsAllowed}}</td>
+                    <td>{{headerComponentService.usageSummaryDetails.petitionsUsed}}</td>
+                  </tr>
+                  <tr>
+                    <td>Storage</td>
+                    <td>{{headerComponentService.usageSummaryDetails.storageAllowed}}</td>
+                    <td>{{headerComponentService.usageSummaryDetails.storageUsed}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>-->
+</div>

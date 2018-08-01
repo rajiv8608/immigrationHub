@@ -1,0 +1,57 @@
+<div class="main-content" *ngIf="getVisasData">
+
+    <div class="table-data">
+        <h1 class="clickname" (click)="appService.moveToPage('immigrationview/client/detail/client-details');highlightSBLink('Client Details')">
+            <img style="margin-bottom: 4px !important;" src="../../../../assets/images/Group984.png" />&nbsp;&nbsp;&nbsp;<span>{{appService.clientfirstName}} {{appService.clientlastName}}</span></h1>
+        <div class="clearfix"></div>
+        <h2 class="headerinsections" style="margin-top: 0px !important;color: #4EA0F9 !important;margin-bottom: 7px!important;">Visas</h2>
+        <ih-smart-table class="immiview-clienttab-visas benadd" [settings]="settings" [data]="data"
+                   (onAddClick)="addNewVisa($event)" (onRowClick)="editVisas($event)" (onDeleteClick)="deleteVisas($event)"></ih-smart-table>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div *ngIf="showAddVisapopup">
+    <div class="modal-dialog" ngDraggable>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}}</h4>
+                <button type="button" class="close" (click)="close()" id="ivClientDtlsVisaClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-5">Country :</div>
+                            <div class="col-md-7"><input type="text" id="ivClientDtlsVisaCountry" maxlength="20" [(ngModel)]="newvisaitem.country" class="form-control"></div>
+                            <div class="col-md-5">Petition Number:</div>
+                            <div class="col-md-7"><input type="text" id="ivClientDtlsVisaPNo" maxlength="15" [(ngModel)]="newvisaitem.petitionNumber" class="form-control"></div>
+                            <div class="col-md-5">Visa Number :</div>
+                            <div class="col-md-7"><input type="text" id="ivClientDtlsVisaNo" maxlength="15" [(ngModel)]="newvisaitem.visaNumber" class="form-control"></div>
+                            <div class="col-md-5">Visa Type :</div>
+                            <div class="col-md-7"><input type="text" id="ivClientDtlsVisaType" maxlength="10" [(ngModel)]="newvisaitem.visaType" class="form-control"></div>
+                            <div class="col-md-5">Issued On :</div>
+                            <div class="col-md-7">
+                                <my-date-picker [options]="myDatePickerOptions" id="ivClientDtlsVisaIssuedOn" [(ngModel)]="newvisaitem.issuedOn" [selDate]="issuedOn"></my-date-picker>
+                            </div>
+                            <div class="col-md-5">Expires On :</div>
+                            <div class="col-md-7">
+                                <my-date-picker [options]="myDatePickerOptions" id="ivClientDtlsVisaExpired" [(ngModel)]="newvisaitem.expiresOn" [selDate]="expiresOn"></my-date-picker>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient" [ngClass]="{'loader': saveButtonProgress}" [disabled]="saveButtonProgress" style="color: #008000 !important; margin-right: 11px;margin-top: 4px!important; width: 90%;" id="ivClientDtlsVisaSave1" (click)="visaSave()">Save</button></div>
+                                    <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient" style="color: #FF0000 !important;margin-left: 4px;width: 90%;margin-top: 4px!important;" id="ivClientDtlsVisaCancel1" (click)="cancel()">Cancel</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

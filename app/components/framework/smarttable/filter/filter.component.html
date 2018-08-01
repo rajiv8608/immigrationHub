@@ -1,0 +1,64 @@
+
+<div class="filters-container" *ngIf="showFilters || smartTable.isAddButtonEnable || smartTable.isMorefilters">
+  <div class="filters">
+    <div class="styled-select">
+      <div *ngIf="showFilters && smartTable.isMorefilters">
+        <span>Filters: </span>
+        <div *ngIf="quickFilters != null && quickFilters.length > 0">
+          <select *ngFor="let quickFilter of quickFilters" (change)="onChange($event)" id="{{quickFilter['field']}}">
+            <option value="{{quickFilter['field']}}">{{quickFilter['headerName']}}</option>
+            <option *ngFor="let values of quickFilter['values']" value="{{values['value']}}">{{values['alias']}}</option>
+          </select>
+        </div>
+        <a (click)="moreFilters()" class="addfilter"></a>
+        <div class="addedfilter" *ngFor="let x of smartTable.queryParameters.filter let i=index">
+          <span class="filtretype">{{x.fieldHeader}} :</span><span class="filtrename">{{x.fieldValue}}</span><span class="close" (click)="deleteFilter(i,x)">&times;</span>
+        </div>
+          <div>
+              <!--<span (click)="clearAllFilters()" style="cursor: pointer;">clear all</span>-->
+              <button type="button" class="iportal-btnIMclient" style="cursor: pointer;" (click)="clearAllFilters()">clear all</button>
+          </div>
+        </div>
+      </div>
+      <button *ngIf="smartTable.isAddButtonEnable" type="button" class="pull-right no-marg-right agridadd addbtnnsmart iportal-btnIMclient" [ngClass]="{'loader': saveButtonProgress}" [disabled]="saveButtonProgress" (click)="onAddClick()">ADD</button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+<div *ngIf="addMorefilters">
+    <div class="modal-dialog" ngDraggable>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Apply Filters</h4>
+                <button type="button" class="close" (click)="close()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class='row' *ngFor="let row of moreFilterFields">
+                    <div class='col-sm-4' *ngFor="let column of row">
+                        <div class='form-group'>
+                            <label for="filter_{{column['field']}}">{{column['headerName']}}</label>
+                            <input class="form-control" *ngIf="column['type'] == 'text' || column['type'] == undefined" id="filter_{{column['field']}}"
+                                   name="filter[{{column['field']}}]" [(ngModel)]="column['value']" size="30" type="text" />
+                          <input class="form-control" *ngIf="column['type'] == 'number'"
+                                 name="filter[{{column['field']}}]" [(ngModel)]="column['value']" size="30" type="number" />
+                          <select class="form-control" *ngIf="column['type'] == 'dropDown'" [(ngModel)]="column['value']" >
+                            <option *ngFor="let optionData of column['data']" [value] = 'optionData.value'>
+                              {{ optionData.display}}
+                            </option>
+                          </select>
+
+                          <my-date-picker *ngIf="column['type'] == 'datePicker'"
+                                          [options]="datePickerOptions" [(ngModel)]="column['value']"
+                                          [selDate]="deniedDate"></my-date-picker>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-sm-4'></div>
+                    <div class='col-sm-4'><button type="button" style="width: 100%;" class="iportal-btnIMclient" (click)="onApplyFiltersClick()">Apply Filters</button></div>
+                    <div class='col-sm-4'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

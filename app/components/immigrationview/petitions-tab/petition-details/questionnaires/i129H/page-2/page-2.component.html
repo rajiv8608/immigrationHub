@@ -1,0 +1,176 @@
+<div class="main-content">
+  <div class="table-data">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-4">
+            <a (click)="gotoPrev()" class="prevbtn">Back</a>
+          </div>
+          <div class="col-md-4 pagenoof36">Page 14 of 36</div>
+          <div class="col-md-4">
+            <a *ngIf="appService.isClientView()" (click)="submit()" class="nextbtn">Submit</a>
+            <!--<a *ngIf="appService.isImmigrationView()" (click)="gotoNext()" class="nextbtn">Save</a>-->
+            <a *ngIf="isQuestionnaireEdit" (click)="cancelQuestinnaireEdit()" class="nextbtn iportal-btnIMclient" style="color: #FF0000 !important;">Cancel</a>
+            <a *ngIf="isQuestionnaireEdit" (click)="saveQuestionnaireInformation()" class="nextbtn iportal-btnIMclient" style="color: #008000 !important;">Save</a>
+            <a *ngIf="!isQuestionnaireEdit" (click)="editQuestinnaireForm()" class="nextbtn iportal-btnIMclient">Edit</a>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="appService.isImmigrationView()" style="width:100%;">
+        <div class="col-md-12">
+          <div class="col-md-12 addresbox box-shadow clientview-ques129h" style="margin-bottom:0px;">
+              <div class="col-md-12" style="margin-top: 1%;">
+                <div class="row">
+                  <div class="col-md-12"><b>7.b.</b>Explanation</div>
+                  <div class="col-md-12"><textarea style="height:120px" [disabled]="!isQuestionnaireEdit" [(ngModel)]="I129Hpage2.explanation"></textarea>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-12 Questionnaireheader">
+          <h2><b>Section 1.</b>Complete This Section If Filing for H-1B Classification</h2>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-12 addresbox box-shadow clientview-ques129h" style="margin-bottom:0px;">
+
+            <div class="col-md-12" style="margin-top: 1%;">
+              <div class="row">
+                <div class="col-md-12"><b>1.</b>Describe the proposed duties</div>
+                <div class="col-md-12"><textarea style="height:120px" [disabled]="!isQuestionnaireEdit" [(ngModel)]="I129Hpage2.proposedDutiess"></textarea></div>
+              </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <b>2.</b>Describe the beneficiary's present occupation and summary of prior work
+                        experience.
+                    </div>
+                    <div class="col-md-12">
+                        <textarea style="height:120px" [disabled]="!isQuestionnaireEdit" [(ngModel)]="I129Hpage2.summaryOfWorkExp"></textarea>
+                    </div>
+                </div>
+                </div>
+
+            <div *ngIf="appService.isImmigrationView()" class="row no-marg">
+              <div class="col-md-12">
+                <p class="fieldsetheading">Statement for H-1B Specialty Occupations and H-1B1 Chile and Singapore</p>
+                <p>By filing this petition, I agree to, and will abide by, the terms of the labor condition application
+                  (LCA) for the duration of the beneficiary's authorized period of stay for H-1B employment. I certify
+                  that I will maintain a valid employer-employee relationship with the beneficiary at all times. If the
+                  beneficiary is assigned to a position in a new location, I will obtain and post an LCA for that site
+                  prior to reassignment.</p>
+                <p>I further understand that I cannot charge the beneficiary the ACWIA fee, and that any other required
+                  reimbursement will be considered an offset against wages and benefits paid relative to the LCA. </p>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">Signature of Petitioner</div>
+                  <div class="col-md-8"><input type="text" [disabled]="true"/></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">Name of Petitioner</div>
+                  <div class="col-md-8"><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="I129Hpage2.petitonerName"/></div>
+
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">Date (mm-dd-yyyy)</div>
+                  <div class="col-md-8">
+                    <my-date-picker [disabled]="!isQuestionnaireEdit" [options]="myDatePickerOptions"
+                                    [(ngModel)]="I129Hpage2.petitionerDateOfSignature"
+                                    [selDate]="petitionerDateOfSignature"></my-date-picker>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <p class="fieldsetheading">Statement for H-1B Specialty Occupations and U.S. Department of Defense (DOD)
+                  Projects</p>
+                <p>As an authorized official of the employer, I certify that the employer will be liable for the
+                  reasonable costs of return transportation of the alien abroad if the beneficiary is dismissed from
+                  employment by the employer before the end of the period of authorized stay.</p>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-4">Signature of Authorized Official of Employer</div>
+                  <div class="col-md-8"><input type="text" [disabled]="true"/></div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-4">Name of Authorized Official of Employer</div>
+                  <div class="col-md-8"><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="I129Hpage2.authorizedOfficial"/></div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-4">Date (mm-dd-yyyy)</div>
+                  <div class="col-md-8">
+                    <my-date-picker [disabled]="!isQuestionnaireEdit" [options]="myDatePickerOptions"
+                                    [(ngModel)]="I129Hpage2.officialDateOfSignature"
+                                    [selDate]="officialDateOfSignature"></my-date-picker>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <p class="fieldsetheading">Statement for H-1B U.S. Department of Defense Projects Only</p>
+                <p>I certify that the beneficiary will be working on a cooperative research and development project or a
+                  co-production project under a reciprocal government-to-government agreement administered by the U.S.
+                  Department of Defense.</p>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-4">Signature of DOD Project Manager</div>
+                  <div class="col-md-8"><input type="text" [disabled]="true"/></div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-4">Name of DOD Project Manager</div>
+                  <div class="col-md-8"><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="I129Hpage2.projectManager"/></div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-4">Date (mm-dd-yyyy)</div>
+                  <div class="col-md-8">
+                    <my-date-picker [disabled]="!isQuestionnaireEdit" [options]="myDatePickerOptions"
+                                    [(ngModel)]="I129Hpage2.projectManagerDateOfSignature"
+                                    [selDate]="projectManagerDateOfSignature"></my-date-picker>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div *ngIf="appService.isImmigrationView()" style="width:100%;">
+        <div class="col-md-12 Questionnaireheader">
+          <h2 ><b>Section.2.</b>Complete This Section If Filing for H-2A or H-2B Classification</h2>
+        </div>
+        <div class="col-md-12" style="margin-top: 1%;">
+          <div class="col-md-12 addresbox box-shadow clientview-ques129h" style="margin-bottom:0px;">
+              <div class="col-md-12"><b>1.</b>Employment is: (select <b>only one</b> box)</div>
+              <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-3" *ngFor="let x of I129Hpage2Employment">
+                  <input type="radio" name="employment" [disabled]="!isQuestionnaireEdit" [value]="x.value" [(ngModel)]="I129Hpage2.employment">{{x.display}}
+                </div>
+              </div>
+              </div>
+           <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12"><b>2.</b>Temporary need is: (select <b>only one</b> box)</div>
+
+                <div class="col-md-3" *ngFor="let x of I129Hpage2TemporaryNeed">
+                  <input type="radio" name="temporaryneed" [disabled]="!isQuestionnaireEdit" [value]="x.value" [(ngModel)]="I129Hpage2.temporaryNeed">{{x.display}}
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

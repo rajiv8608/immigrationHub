@@ -1,0 +1,163 @@
+<div class="main-content" *ngIf="viewDetails">
+
+    <!--<ul class="breadcrumb">
+        <li><a href="#">Clients</a></li>
+        <li><a href="#">Visas</a></li>
+    </ul>
+    <div class="clearfix"></div>-->
+    <div class="table-data">
+      <h2 _ngcontent-c6="" class="headerinsections" style="margin-top: 0px !important;color: #4EA0F9 !important;margin-bottom: 7px!important;">Discounts</h2>
+        <ih-smart-table class="acctabprodcatDiscounts benadd" [settings]="settings" [data]="data" [paginationData]="paginationData" (onAddClick)="addDiscounts($event)" (onRowClick)="viewDiscountDetails($event)" (dataWithQueryParams)="dataWithParameters($event)"></ih-smart-table>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="table-data-forms" ngDraggable *ngIf="viewDiscountPopup">
+    <div class="modal-dialog"  style="margin-top:7% !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}}</h4>
+                <button type="button" class="close" (click)="close()" id="svprodDiscClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12 addresbox box-shadow">
+                                <div class="row">
+                                    <div class="col-md-5">Name:</div>
+                                    <div class="col-md-7">
+                                        <input type="text" id="svprodDiscName" class="form-control disabled"  [disabled]="isEditDiscount" [(ngModel)]="discount.discountName">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">Code:</div>
+                                    <div class="col-md-7">
+                                        <input type="text" id="svprodDiscCode" class="form-control disabled"  [disabled]="isEditDiscount" [(ngModel)]="discount.discountCode">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">Description:</div>
+                                    <div class="col-md-7">
+                                        <input type="text" id="svprodDiscDesc" class=" form-control disabled"  [disabled]="isEditDiscount" [(ngModel)]="discount.discountDesc">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">Cost:</div>
+                                    <div class="col-md-7">
+                                        <input type="text" id="svprodDiscCost" class="form-control disabled"  [disabled]="isEditDiscount" [(ngModel)]="discount.cost">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">Percentage:</div>
+                                    <div class="col-md-7">
+                                        <input type="text" id="svprodDiscPerc" class="form-control disabled"  [disabled]="isEditDiscount" [(ngModel)]="discount.percentage">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">Type:</div>
+                                    <div class="col-md-7">
+                                        <select class="form-control" [disabled]='isEditDiscount' [(ngModel)]="discount.type">
+
+                                   <option value="DIS" id="svprodDiscTypeDis">DIS</option>
+                                   <option value="TRIAL" id="svprodDiscTypeTrail">TRIAL</option>
+
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">Status:</div>
+                                    <div class="col-md-7">
+                                        <select [(ngModel)]="discount.status" [disabled]="isEditDiscount" class="form-control" >
+                                            <option value="Active" id="svprodDiscStatusAct">Active</option>
+                                            <option value="Inactive" id="svprodDiscStatusInAct">Inactive</option>
+                                        </select>
+                                        <!--<span *ngIf="isEditDiscount==true">{{discount.status}}</span>-->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">Created On:</div>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control disabled"  [disabled]="true" id="svprodDiscCreatedOn" [(ngModel)]="discount.createdOn">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="row sfm" *ngIf="warningMessage">
+                                            <div class="col-md-12">
+                                                <span class="redstar">* Fields are Mandatory.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                <button type="submit" class="btn iportal-btnIMclient" style="color: #008000 !important;" id="svprodDiscEdit" (click)="editDiscountInfo()" *ngIf="isEditDiscount==true">Edit</button>
+
+
+                                                <button type="submit" value="Save" class="btn iportal-btnIMclient" style="color: #008000 !important;" id="svprodDiscSave" [ngClass]="{'loader': showWorkAddrSaveButtonProgress}" [disabled]="showWorkAddrSaveButtonProgress" (click)="saveDiscountInfo()" *ngIf="isEditDiscount==false">Save</button>
+
+                                            </div>
+                                            <div class="col-md-6"><button type="button" class="btn iportal-btnIMclient" style="color: #FF0000 !important;" id="svprodDiscCancel" (click)="cancel()">Cancel</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="addDiscountPopup">
+    <div class="modal-dialog" ngDraggable>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}}</h4>
+                <button type="button" class="close" id="svprodDiscPopClose" (click)="close()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-5">Name:<span class="redstar">*</span></div>
+                            <div class="col-md-7"><input type="text" id="svprodDiscPopName" [(ngModel)]="addDiscount.discountName" class="form-control"></div>
+                            <div class="col-md-5">Code:<span class="redstar">*</span></div>
+                            <div class="col-md-7"><input type="text" id="svprodDiscPopCode" [(ngModel)]="addDiscount.discountCode" class="form-control"></div>
+                            <div class="col-md-5">Type:<span class="redstar">*</span></div>
+                            <div class="col-md-7">
+                                <select class="form-control" [(ngModel)]="addDiscount.type">
+                                   <option value="DIS" id="svprodDiscPopTypeDis">DIS</option>
+                                   <option value="TRIAL" id="svprodDiscPopTypeTrail">TRIAL</option>
+                               </select>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="row sfm" *ngIf="warningMessage">
+                            <div class="col-md-12">
+                                <span class="redstar">* Fields are Mandatory.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="row">
+                            <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient" 
+	style="color: #008000 !important;margin-top: 4px!important; width: 100%;margin-right: 0%;" id="svprodDiscPopSave" [ngClass]="{'loader': showWorkAddrSaveButtonProgress}" [disabled]="showWorkAddrSaveButtonProgress" (click)="saveDiscounts()">Save</button></div>
+                            <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient" 
+	style="color: #FF0000 !important;margin-left: 4px;width: 100%;margin-top: 4px!important;" id="svprodDiscPopCancel" (click)="cancel()">Cancel</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<div class="main-content">
+    <div class="table-data-forms">
+        <h1>{{userList.firstName}} {{userList.lastName}}</h1>
+        <div class="clearfix"></div>
+        <h2 class="headerinsections" style="margin-top: 0px !important;color: #4EA0F9 !important;margin-bottom: 7px!important;">User Details</h2>
+        <ul class="breadcrumb">
+            <li><a href="#">Clients</a></li>
+            <li><a href="#">Visas</a></li>
+        </ul>
+        <div class="clearfix"></div>
+            <div class="col-md-6 col-sm-6 col-xs-12 no-pad-left">
+                <div class="col-md-12 addresbox box-shadow">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Profile</h2>
+                            <button type="submit" class="iportal-btnIMclient" style="float: right !important;margin: -30px 0 20px 0 !important;" (click)="editProfileForm()" *ngIf="isUserEdit==true">Edit</button>
+                            <div class="tbl-head-btn" [hidden]="isUserEdit">
+                                <button type="button" (click)="cancelProfileEdit()" class="editbtn tbl-head-btn iportal-btnIMclient" style="color: #FF0000 !important;margin-left: 4px;" *ngIf="isUserEdit==false">Cancel</button>
+                                <button type="submit" value="Save" class="editbtn tbl-head-btn iportal-btnIMclient" style="color: #008000 !important;" (click)="saveUserProfile()" *ngIf="isUserEdit==false">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="warningMessage">
+                        <div class="col-md-12">
+                            <span class="redstar">* Fields are Mandatory.</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"><label for="wa-county">First Name<span class="redstar">*</span></label></div>
+                        <div class="col-md-8">
+                            <input type="text" maxlength="100" [disabled]="isUserEdit" id="wa-county" [(ngModel)]="userList.firstName" [ngClass]="userList.firstName == '' ? 'redborder': ''" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"><label for="wa-zip">Last Name<span class="redstar">*</span></label></div>
+                        <div class="col-md-8">
+                            <input type="text" maxlength="100" [disabled]="isUserEdit" id="wa-zip" [(ngModel)]="userList.lastName" [ngClass]="userList.lastName == '' ? 'redborder': ''" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"><label for="wa-emailid">Email<span class="redstar">*</span></label></div>
+                        <div class="col-md-8">
+                          <input type="text" maxlength="100" [disabled]="isUserEdit" id="wa-emailid" [(ngModel)]="userList.emailId" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"><label for="wa-country">Phone Number</label></div>
+                        <div class="col-md-8">
+                            <input type="text" maxlength="100" [disabled]="isUserEdit" id="wa-country" [(ngModel)]="userList.phoneNumber" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"><label for="wa-role">Role<span class="redstar">*</span></label></div>
+                        <div class="col-md-8">
+                            <select [(ngModel)]="userList.role" id="wa-role" class="form-control" [disabled]="isUserEdit">
+                                <option value="Immigration Officer">Immigration Officer</option>
+                                <option value="Immigration Manager">Immigration Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12 no-pad-right">
+                <div class="col-md-12 addresbox box-shadow">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Orgs Accessible:</h2>
+                            <button type="submit" class="editbtn  no-marg-right" (click)="editOrgsAccess()" *ngIf="isAccessEdit==true">Edit</button>
+                            <div class="tbl-head-btn">
+                                <button type="button" (click)="cancelOrgsAccess()" class="editbtn tbl-head-btn" *ngIf="isAccess==true">Cancel</button>
+                                <button type="submit" value="Save" class="savebtn" (click)="saveOrgsAccess()" *ngIf="isAccess==true">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fieldset">
+                        <div class="clearfix"></div>
+                        <div class="scrollpurpus">
+                            <div class="chkbox" *ngFor="let x of orgsList">
+                                <input #orgcheckBox type="checkbox" [checked]="x.orgAccessible" name="orgName" [disabled]="orgsAcces" [(ngModel)]="x.orgAccessible" /><span>{{x.orgName}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+                <div class="col-sm-12">
+                    <h2>Login History</h2>
+                </div>
+            <div class="table-data">
+                <ih-smart-table [settings]="settings" [data]="data" [paginationData]="paginationData" (dataWithQueryParams)="loginHistoryDataWithParameters($event)"></ih-smart-table>
+            </div>
+    </div>
+</div>

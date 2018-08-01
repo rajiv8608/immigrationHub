@@ -1,0 +1,104 @@
+<style>
+    .no-border{
+        height:auto !important;
+        margin-bottom:0px !important;
+        border:none !important;
+        margin-top: -2px !important;
+    }
+</style>
+
+<div class="main-content" *ngIf="getClientsData">
+    <div class="pagetitleandfilters">
+        <div class="mainContainer">
+            <h2>Beneficiaries</h2>
+            <div class="table-data">
+                <ih-smart-table class="immiviewClientsTable benadd"
+                             [settings]="settings"
+                             [data]="clientService.data"
+                             [paginationData]="clientService.paginationData"
+                             (onRowClick)="onUserRowClick($event)"
+                             (dataWithQueryParams)="clientService.dataWithParameters($event)"
+                             (onAddClick)="addNewCli()"></ih-smart-table>
+              <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="addNewClient">
+    <div class="modal-dialog" ngDraggable>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}}</h4>
+                <button type="button" class="close" (click)="close()" id="ivClientClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-5">First Name:<span class="redstar">*</span></div>
+                            <div class="col-md-7">
+                                <input type="text" [(ngModel)]="newclitem.firstName" id="ivClientFName" (blur)="capitialize(newclitem)" [ngClass]="newclitem.firstName == '' ? 'redborder': ''"
+                                       class="form-control">
+                            </div>
+                            <div class="col-md-5">Last Name:<span class="redstar">*</span></div>
+                            <div class="col-md-7">
+                                <input type="text" [(ngModel)]="newclitem.lastName" id="ivClientLName" (blur)="capitialize(newclitem)" [ngClass]="newclitem.lastName == '' ? 'redborder': ''"
+                                       class="form-control">
+                            </div>
+                            <div class="col-md-5">Email:<span class="redstar">*</span></div>
+                            <div class="col-md-7">
+                                <input type="text" [(ngModel)]="newclitem.email" id="ivClientEmail" [ngClass]="newclitem.email == '' ? 'redborder': ''"
+                                       class="form-control" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required #emailId="ngModel">
+                            </div>
+                            <div class="col-md-5">Phone:<span class="redstar">*</span></div>
+                            <div class="col-md-7">
+                                <input type="tel" id="ivClientPhone" [(ngModel)]="newclitem.phone" required #phone="ngModel" pattern="[\+]?[0-9]*[\-]?[(]?[0-9]{3}[)]?[-]?[0-9]{3}[-]?[0-9]{4,6}" [ngClass]="newclitem.phone == '' ? 'redborder': ''"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="row sfm" *ngIf="warningMessage">
+                                    <div class="col-md-12">
+                                        <span class="redstar">* Fields are Mandatory.</span>
+                                    </div>
+                                </div>
+                                <div class="row sfm" [hidden]="emailId.valid || emailId.untouched">
+                                    <div class="col-md-12">
+                                        <div class="redstar" *ngIf="emailId.errors && emailId.errors.required">
+                                            * Email is required
+                                        </div>
+                                        <div class="redstar" *ngIf="emailId.errors && emailId.errors.pattern">
+
+                                            * Email is invalid
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row sfm" [hidden]="phone.valid || phone.untouched">
+                                    <div class="col-md-12">
+                                        <div class="redstar" *ngIf="phone.errors && phone.errors.required">
+                                            * Phone is required
+                                        </div>
+                                        <div class="redstar" *ngIf="phone.errors && phone.errors.pattern">
+                                            * Phone field can contain numbers, '+' , '(' , ')'
+                                        </div>
+                                    </div>+-
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="button" [disabled]="saveButtonProgress" class="editbtn tbl-head-btn iportal-btnIMclient" [ngClass]="{'loader': saveButtonProgress}"
+	style="color: #008000 !important;margin-top: 4px!important; width: 90%;margin-right: 11px;"  id="ivClientSave1" (click)="clientSave(emailId.errors,phone.errors)">
+                                        <span class="no-border">Save</span></button></div>
+                                    <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient"
+	style="color: #FF0000 !important;margin-left: 4px;width: 90%;margin-top: 4px!important;" id="ivClientCancel1" (click)="cancel()">Cancel</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div>
+  <ih-smart-table-filter [quickFilters]="quickFilters" [smartTable]="this" (addRecordClick)="addRecord()"></ih-smart-table-filter>
+  <div class="clearfix"></div>
+  <div class="agtblOptions">
+      <ag-grid-angular id="grid" #grid style="width: 100%;" class="ag-fresh" [gridOptions]="gridOptions" (cellClicked)="onCellClick($event)">
+      </ag-grid-angular>
+      <ih-smart-table-pagination *ngIf="!paginationMetadata.isPaginationEmpty()" [smartTable]="this" [paginationMetadata]="paginationMetadata" ></ih-smart-table-pagination>
+  </div>
+</div>

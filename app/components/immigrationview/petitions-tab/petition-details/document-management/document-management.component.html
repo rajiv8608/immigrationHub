@@ -1,0 +1,101 @@
+  <html>
+<head>
+<style>
+    .myclass {
+      float: right;
+      margin: 0 7px 15px 0 !important;
+      border: none;
+      background:darkgray;
+      color: #d4d4d4 !important;
+      border-radius: 5px;
+      padding: 6px 15px;
+
+    }
+  .removedclass {
+    margin-right: 6px !important;
+    margin-left: 0px !important;
+  }
+  .docName{
+      width: 230px;
+      white-space: nowrap;
+      overflow:hidden !important;
+      text-overflow: ellipsis;
+  }
+</style>
+    </head>
+<body>
+<div class="main-content">
+
+    <div class="table-data petition-docs">
+        <h1 class="clickname" style="width:60%;float:left;border-bottom: none!important;" (click)="appService.moveToPage('immigrationview/client/detail/client-details');highlightSBLink('Client Details')">
+            <img style="margin-bottom: 4px !important;" src="../../../../assets/images/Group984.png" />&nbsp;&nbsp;&nbsp; <span>{{appService.clientfirstName}} {{appService.clientlastName}}</span></h1>
+        <h1 style="float:right;width:40%; text-align:right;border-bottom: none!important;">{{appService.petitionDetails}}</h1>
+        <div class="clearfix"></div>
+        <h2 class="headerinsections" style="border-bottom: none!important;color: #4EA0F9 !important;margin-top: 0px !important;margin-bottom: 7px!important;">Document Management</h2>
+        <!--<h2>Document Management</h2>-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-8 left-form">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="fieldset">
+                                        <h3>Petitioner Docs</h3> <div class="clearfix"></div>
+                                        <div class="scrollpurpus">
+                                            <div class="chkbox" *ngFor="let x of orgdocList; let xindex = index;">
+                                                <input #orgcheckBox [checked]="checkIfDocSelected(x)" type="checkbox" (change)="onDocSelection(x, orgcheckBox)"  name="{{x.fileName}}" id="{{x.fileId}}" /> <label class="docName" for="{{x.fileId}}" title="{{(xindex + 1) + '. ' + x.fileName}}">{{(xindex + 1) + '. ' + x.fileName}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fieldset">
+                                        <h3>Petition Docs</h3> <div class="clearfix"></div>
+                                        <div class="scrollpurpus">
+                                            <div class="chkbox" *ngFor="let y of petitiondocList; let yindex = index;">
+                                                <input #petitioncheckBox [checked]="checkIfDocSelected(y)" type="checkbox" (change)="onDocSelection(y, petitioncheckBox)"  name="{{y.fileName}}" id="{{y.fileId}}" /><label  class="docName" for="{{y.fileId}}" title="{{(yindex + 1) + '. ' + y.fileName}}">{{(yindex + 1) + '. ' + y.fileName}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="fieldset large">
+                                        <h3>Beneficiary Docs</h3>
+                                        <div class="clearfix"></div>
+                                        <div class="scrollpurpus">
+                                            <div class="chkbox" *ngFor="let z of clientdocList; let zindex = index">
+                                                <input #clientcheckBox [checked]="checkIfDocSelected(z)" type="checkbox" (change)="onDocSelection(z, clientcheckBox)"  name="{{z.fileName}}" id="{{z.fileId}}" /><label class="docName" for="{{z.fileId}}" title="{{(zindex + 1) + '. ' + z.fileName}}">{{(zindex + 1) + '. ' + z.fileName}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                    <div class="col-md-4 right-form">
+                        <div class="row removedclass" style="margin-bottom: 6px !important; margin-left: 4px !important;">
+                            <div class="col-md-1"></div>
+                            <button type="submit" class="btn iportal-btnIMclient" style="color: #34a853 !important;" *ngIf="isSaveOrderVisible" (click)="saveOrder()" [ngClass]="{'iportal-btnIMclient':isSaveOrderVisible,'myclass':!isSaveOrderVisible}">Save Order</button>
+                          <button _ngcontent-c7="" class="btn iportal-btnIMclient pull-left no-marg-right" *ngIf="isSaveOrderVisible" style="margin-top: 0px!important;    margin-right: -20px !important;margin-left: -14px;color: #ea4335 !important;" type="button" (click)="cancelOrder()">Cancel</button>
+
+                          <div class="col-md-1"></div>
+                            <button type="submit" class="btn iportal-btnIMclient" style="margin-left: -44px!important;" *ngIf="isMergeOrderVisible" (click)="mergeOrder()"[ngClass]="{'iportal-btnIMclient':isMergeOrderVisible,'myclass':!isMergeOrderVisible}">Merge Order</button>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-8 selecteditemlist" [dragula]="dragbox" [dragulaModel]="selectedDocList">
+                                <div class="selecteditems" style="white-space: nowrap;overflow:hidden !important;text-overflow: ellipsis;" *ngFor="let y of selectedDocList; let i = index"> {{(i+1) + '. ' + y.fileName}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+ </body>
+</html>

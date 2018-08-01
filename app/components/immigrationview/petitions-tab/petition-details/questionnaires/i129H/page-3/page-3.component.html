@@ -1,0 +1,171 @@
+<div class="main-content">
+    <div class="table-data">
+        <!--<h1 class="clickname" (click)="appService.moveToPage('immigrationview/client/detail/client-details');highlightSBLink('Client Details')">{{appService.clientfirstName}} {{appService.clientlastName}} </h1>
+        <h1 style="float:right;">{{appService.petitionDetails}}</h1>
+        <div class="clearfix"></div>-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a (click)="gotoPrev()" class="prevbtn">Back</a>
+                    </div>
+                    <div class="col-md-4 pagenoof36">Page 15 of 36</div>
+                    <div class="col-md-4">
+                        <a (click)="gotoNext()" class="nextbtn">Save & Continue</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <h2>Complete This Section If Filing for H-2A or H-2B Classification</h2>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12 addresbox box-shadow clientview-ques129h" style="margin-bottom:0px;">
+                    <div class="row">
+                        <div class="col-md-12">Explain your temporary need for the workers' services (Attach a separate sheet if additional space is needed).</div>
+                        <div class="col-md-12"> <textarea style="height:120px" [(ngModel)]="I129Hpage3.explainTempNeedOfWorkers"></textarea></div>
+                        <div class="col-md-12">List the countries of citizenship for the H-2A or H-2B workers you plan to hire.</div>
+                        <div class="col-md-12">
+                            <table width="100%" cellpadding="3px" cellspacing="0px;" border="1">
+                                <tr>
+                                    <td width="50%">a</td>
+                                    <td width="50%">b</td>
+                                </tr>
+                                <tr>
+                                    <td width="50%">c</td>
+                                    <td width="50%">d</td>
+                                </tr><tr>
+                                    <td width="50%">e</td>
+                                    <td width="50%">f</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-12"><p>You must provide all of the requested information for Item Numbers 5.a. - 6. for each H-2A or H-2B worker you plan to hire who is not from a country that has been designated as a participating country in accordance with 8 CFR 214.2(h)(5)(i)(F)(1) or 214.2(h)(6)(i)(E)(1).  See www.uscis.gov for the list of participating countries.  (Attach a separate sheet if additional space is needed.)</p></div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Family Name (Last Name)</div>
+                                <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage3.h2AFamilyName"/></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Given Name (First Name)</div>
+                                <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage3.h2AGivenName"/></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Middle Name</div>
+                                <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage3.h2AMiddleName"/></div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            Provide all other name(s) used
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Family Name (Last Name)</div>
+                                <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage3.otherFamilyName"/></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Given Name (First Name)</div>
+                                <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage3.otherGivenName"/></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Middle Name</div>
+                                <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage3.otherMiddleName"/></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage3.other2FamilyName" /></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage3.other2GivenName" /></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage3.other2MiddleName" /></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Date of Birth (mm/dd/yyyy)</div>
+                                <div class="col-md-8">
+                                    <my-date-picker [options]="myDatePickerOptions"
+                                                    [(ngModel)]="I129Hpage3.dateOfBirth"
+                                                    [selDate]="dateOfBirth"></my-date-picker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Country of Birth</div>
+                                <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage3.countryOfBirth"/></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Country of Citizenship or Nationality</div>
+                                <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage3.nationality"/></div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">Have any of the workers listed in Item Number 5. above ever been admitted to the United States previously in H-2A/H-2B status?
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row" *ngFor="let x of I129Hpage3questions">
+                                <label for="">
+                                    <input type="radio" name="previusadmitted" [value]="x.value" [(ngModel)]="I129Hpage3.isPreviousAdmittedToUSinH2AStatus" />
+                                    {{x.display}}
+                                </label>
+                            </div>
+                            <span>If yes, go to Part 9. of Form I-129 and write your explanation</span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-4">Visa Classification (H-2A or H-2B):</div>
+                                <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage3.visaClassification"/></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <p>NOTE:  If any of the H-2A or H-2B workers you are requesting are nationals of a country that is not on the eligible countries list, you must also provide evidence showing: (1) that workers with the required skills are not available from a country currently on the eligible countries list*; (2) whether the beneficiaries have been admitted previously to the United States in H-2A or H-2B status; (3) that there is no potential for abuse, fraud, or other harm to the integrity of the H-2A or H-2B visa programs through the potential admission of the intended workers; and (4) any other factors that may serve the United States interest.</p>
+                            <p>* For H-2A petitions only: You must also show that workers with the required skills are not available from among United States workers. </p>
+                        </div>
+                        <div class="col-md-8">
+                            Did you or do you plan to use a staffing, recruiting, or similar placement service or agent to locate the H-2A/H-2B workers that you intend to hire by filing this petition?                        </div>
+                        <div class="col-md-4">
+                            <div class="row" *ngFor="let x of I129Hpage3questions">
+                                <label for="">
+                                    <input type="radio" name="planstaffing" [value]="x.value" [(ngModel)]="I129Hpage3.isPlanToUseForStaffing" />
+                                    {{x.display}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <p>If yes, list the name and address of service or agent used below.  Please use Part 9. of Form I-129 if you need to include the name and address of more than one service or agent.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Name</div>
+                                <div class="col-md-8"><input type="text" [(ngModel)]="I129Hpage3.name"/></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+                </div>
+            </div>
+</div>

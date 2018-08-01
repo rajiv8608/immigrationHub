@@ -1,0 +1,14 @@
+<div class="main-content" *ngIf="getClientsData">
+  <div class="pagetitleandfilters">
+    <div class="mainContainer">
+      <h2>Payments</h2>
+      <div class="table-data">
+        <ih-smart-table class="superuserViewPaymentstab" [settings]="settings" [data]="data" [paginationData]="paginationData" (onRowClick)="editRecord($event)" (dataWithQueryParams)="dataWithParameters($event)">
+        </ih-smart-table>
+        </div>
+      </div>
+      </div>
+    </div>
+
+
+

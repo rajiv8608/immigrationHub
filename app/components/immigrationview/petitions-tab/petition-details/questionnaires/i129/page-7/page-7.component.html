@@ -1,0 +1,154 @@
+
+<div class="main-content">
+    <div class="table-data">
+        <!--<h1 class="clickname" (click)="appService.moveToPage('immigrationview/client/detail/client-details');highlightSBLink('Client Details')">{{appService.clientfirstName}} {{appService.clientlastName}} </h1>
+        <h1 style="float:right;">{{appService.petitionDetails}}</h1>
+        <div class="clearfix"></div>-->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a (click)="gotoPrev()" class="prevbtn">Previous</a>
+                    </div>
+                    <div class="col-md-4 pagenoof36">Page 7 of 36</div>
+                    <div class="col-md-4">
+                        <a (click)="gotoNext()" class="nextbtn iportal-btnIMclient">Next</a>
+                        <a *ngIf="isQuestionnaireEdit" (click)="cancelQuestinnaireEdit()" class="nextbtn iportal-btnIMclient" style="color: #FF0000 !important;">Cancel</a>
+                        <a *ngIf="isQuestionnaireEdit" (click)="saveQuestionnaireInformation()" [ngClass]="{'loader': saveButtonProgress}" class="nextbtn iportal-btnIMclient" style="color: #008000 !important;">Save</a>
+                        <a *ngIf="!isQuestionnaireEdit" (click)="editQuestinnaireForm()" class="nextbtn iportal-btnIMclient">Edit</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 Questionnaireheader">
+                <h2>8.&nbsp;Declaration, Signature and Contact Information of Person Preparing Form, If Other Than Petitioner </h2>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12 addresbox box-shadow clientview-ques129h" style="margin-bottom:0px;">
+
+                        <div class="col-md-12" style="margin-top: 20px !important;">
+                            <p class="fieldsetheading"><b>3.</b>Preparer's Mailing Address</p>
+                        </div>
+                    <div class="col-md-12">
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-4">Street Number and Name</div>
+                                <div class="col-md-8">
+                                    <input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page7.preparerAddress.street" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-9">
+                                    <div class="row">
+                                        <div class="col-md-4" *ngFor="let x of aptType">
+                                            {{x.display}}<input type="radio" name="mailingAddressAptType" [disabled]="!isQuestionnaireEdit" [value]="x.value" [(ngModel)]="page7.preparerAddress.aptType"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Number </div>
+                                <div class="col-md-8">
+                                    <input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page7.preparerAddress.houseNumber" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">City or Town</div>
+                                <div class="col-md-8"><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page7.preparerAddress.city"/></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">State</div>
+                                <div class="col-md-8">
+                                    <select [disabled]="!isQuestionnaireEdit" [(ngModel)]="page7.preparerAddress.state">
+                                        <option [value]="petitionerState.name" *ngFor="let petitionerState of states">{{petitionerState.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">ZIP Code</div>
+                                <div class="col-md-8"><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page7.preparerAddress.zipCode"/></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <!--<div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Province</div>
+                                <div class="col-md-8"><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page7.preparerAddress.province" /></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-md-4">Postal Code</div>
+                                <div class="col-md-8"><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page7.preparerAddress.postalCode" /></div>
+                            </div>
+                        </div>-->
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-4">Country</div>
+                                <div class="col-md-8"><input type="text" [disabled]="true" [(ngModel)]="page7.preparerAddress.country"/></div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-md-12">
+                            <p class="fieldsetheading"><b>4.</b>Preparer's Contact Information</p>
+                        </div>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Daytime Telephone Number</div>
+                                <div class="col-md-8"><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page7.preparerTNNumber"/></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Fax Number</div>
+                                <div class="col-md-8"><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page7.preparerFaxNumber"/></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4">Email Address (if any)</div>
+                                <div class="col-md-8"><input type="text" [disabled]="!isQuestionnaireEdit" [(ngModel)]="page7.preparerEmail"/></div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-md-12">
+                            <p class="fieldsetheading" style="background-color: #E0E0E0;"><i>Preparer's Declaration</i></p>
+                            <p>By my signature, I certify, swear, or affirm, under penalty of perjury, that I prepared this petition on behalf of, at the request of, and with the express consent of the petitioner or authorized signatory.  The petitioner has reviewed this completed petition as prepared by me and informed me that all of the information in the form and in the supporting documents, is complete, true, and correct.</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="fieldsetheading">Signature and Date</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4">Signature of Preparer</div>
+                                <div class="col-md-8"><input type="text" [disabled]="true"/></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4">Date of Signature (mm-dd-yyyy)</div>
+                                <div class="col-md-4">
+                                    <my-date-picker [disabled]="true" [options]="myDatePickerOptions"
+                                                    [(ngModel)]="page7.dateOfSignature"
+                                                    [selDate]="dateOfSignature"></my-date-picker>
+                                </div>
+
+                            </div>
+                        </div>
+                </div>
+            </div>
+    </div>
+ </div>

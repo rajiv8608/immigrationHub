@@ -1,0 +1,83 @@
+<div class="main-content"  *ngIf="getdemorequests">
+    <div class="table-data">
+      <h2 _ngcontent-c6="" class="headerinsections" style="margin-top: 0px !important;color: #4EA0F9 !important;margin-bottom: 7px!important;">Demo Request Details</h2>
+        <ih-smart-table class="benadd" [settings]="settings" [data]="data" (onAddClick)="addFunction($event)" (onRowClick)="editRecord($event)" (onDeleteClick)="deleteRecord($event)">
+        </ih-smart-table>
+    </div>
+</div>
+
+<div *ngIf="adddemorequest">
+    <div class="modal-dialog" ngDraggable>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}}</h4>
+                <button type="button" class="close" id="svMiscDemoClose" (click)="close()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-5">Name:</div>
+                            <div class="col-md-7"><input type="text" id="svMiscDemoName" [(ngModel)]="adddemoRequests.name" class="form-control"></div>
+                            <div class="col-md-5">Email:</div>
+                            <div class="col-md-7">
+                                <input type="text" id="svMiscDemoEmail" [(ngModel)]="adddemoRequests.email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                                       required #emailId="ngModel" class="form-control">
+                            </div>
+                            <div class="col-md-5">Phone:</div>
+                            <div class="col-md-7"><input type="text" id="svMiscDemoPhone" [(ngModel)]="adddemoRequests.phone" class="form-control"></div>
+                            <div class="col-md-5">Organization:</div>
+                            <div class="col-md-7"><input type="text" id="svMiscDemoOrganization" [(ngModel)]="adddemoRequests.organization" class="form-control"></div>
+
+                                <div class="col-md-5"><label for="svMiscDemoDate">Date:</label></div>
+                                <div class="col-md-7">
+                                    <my-date-picker id="svMiscDemoDate" [options]="myDatePickerOptions"
+                                                    (dateChanged)="onDateChanged($event)"
+                                                    [(ngModel)]="adddemoRequests.demoRequestDate"
+                                                    [selDate]="demoRequestDate"></my-date-picker>
+                                </div>
+
+                            <div class="col-md-5">Referral:</div>
+                            <div class="col-md-7"><input type="text" id="svMiscDemoRef" [(ngModel)]="adddemoRequests.referral" class="form-control"></div>
+                            <div class="col-md-5">Comments:</div>
+                            <div class="col-md-7"><input type="text" id="svMiscDemoComment" [(ngModel)]="adddemoRequests.comments" class="form-control"></div>
+                            <div class="col-md-5">Status:</div>
+                            <div class="col-md-7">
+                                <select  [(ngModel)]="adddemoRequests.status" class="form-control">
+                                    <option value="new" id="svMiscDemoStatusNew">New</option>
+                                    <option value="scheduled" id="svMiscDemoStatusSchedul">Scheduled</option>
+                                    <option value="completes" id="svMiscDemoStatuComplete">Complete</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="row sfm" [hidden]="emailId.valid || emailId.untouched">
+                                    <div class="col-md-12">
+                                        <div class="redstar" *ngIf="emailId.errors && emailId.errors.required">
+                                            * Email is required
+                                        </div>
+                                        <div class="redstar" *ngIf="emailId.errors && emailId.errors.pattern">
+                                            * Email is invalid
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div></div>
+                                    <div class="col-md-6"> <button type="button" id="svMiscDemoSave" class="editbtn tbl-head-btn iportal-btnIMclient" 
+	style="color: #008000 !important;margin-top: 4px!important; width: 100%;margin-right: 0%;" [ngClass]="{'loader': showWorkAddrSaveButtonProgress}" [disabled]="showWorkAddrSaveButtonProgress" (click)="demorequestsave(emailId.errors,roles)">Save</button></div>
+                                    <div class="col-md-6"> <button type="button" id="svMiscDemoCancel" class="editbtn tbl-head-btn iportal-btnIMclient" 
+	style="color: #FF0000 !important;margin-left: 4px;width: 100%;margin-top: 4px!important;" (click)="cancel()">Cancel</button> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

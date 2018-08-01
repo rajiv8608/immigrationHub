@@ -1,0 +1,80 @@
+<style>
+    .immiview-clienttab-petitions ih-smart-table-filter .filters-container .filters{
+        display:none !important;
+    }
+    .immiview-clienttab-petitions ih-smart-table-filter .filters-container .filters .styled-select{
+            height: 0px !important;
+    }
+</style>
+
+<div class="main-content" *ngIf="getPetitionsData">
+    <div class="table-data">
+
+      <h1 class="clickname" (click)="appService.moveToPage('immigrationview/client/detail/client-details');highlightSBLink('Client Details')">
+        <img style="margin-bottom: 4px !important;" src="../../../../assets/images/Group984.png" />&nbsp;&nbsp;&nbsp;<span>{{appService.clientfirstName}} {{appService.clientlastName}}</span></h1>
+
+      <div class="clearfix"></div>
+        <h2 class="headerinsections">Petitions</h2>
+      <button type="button" class="pull-right no-marg-right agridadd addbtnnsmart iportal-btnIMclient" style="margin: -42px 80px!important" (click)="toggleEmailNotifications()">Email Notification is : {{client['emailNotification'] ? 'On' : 'Off'}}</button>
+       <ih-smart-table class="immiview-clienttab-petitions benadd" [settings]="settings" [data]="data"
+                     (onAddClick)="addNewPetition($event)" (onRowClick)="onUserRowClick($event)" (onDeleteClick)="deleteRecord($event)"
+                       (dataWithQueryParams)="dataWithParameters($event)"></ih-smart-table>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--<div *ngIf="showAddPetitionpopup">
+    <div class="modal-dialog" ngDraggable>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}}</h4>
+                <button type="button" class="close" (click)="close()" id="ivClientDtlsPetitionsClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-5">Country:<span class="redstar">*</span></div>
+                            <div class="col-md-7">
+                              <select class="form-control" (change)="handleCountryChange($event)">
+                                <option *ngFor="let countryName of countryNames" [selected]="countryName == 'United States'" [value]="countryName" id="{{countryName}}">{{ countryName }}</option>
+                              </select>
+                            </div>
+                            <div class="col-md-5">Petition Type:<span class="redstar">*</span></div>
+                            <div class="col-md-7">
+                                <select class="form-control" [(ngModel)]="newpetitionitem.petitiontype" (change)="handleChange($event)" [ngClass]="newpetitionitem.petitiontype == '' ? 'redborder': ''">
+                                    <option *ngFor="let ptst of allPetitionTypesAndSubTypes" [value]="ptst.petitiontype" id="{{ptst.petitiontype}}">{{ ptst.petitiontype }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">Petition Subtype:<span class="redstar">*</span></div>
+                            <div class="col-md-7">
+                                <select class="form-control" [(ngModel)]="newpetitionitem.petitionSubType" [ngClass]="allSubTypes.length > 0 && newpetitionitem.petitionSubType == '' ? 'redborder': ''">
+                                    <option *ngFor="let subtype of allSubTypes" [value]="subtype.petitionSubType" id="{{subtype.petitionSubType}}">{{ subtype.petitionSubType }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">Petition Name:<span class="redstar">*</span></div>
+                            <div class="col-md-7"><input type="text" id="ivClientDtlsPetitionsName" [(ngModel)]="newpetitionitem.petitionName" [ngClass]="newpetitionitem.petitionName == '' ? 'redborder': ''"
+                                    class="form-control"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="row sfm" *ngIf="warningMessage">
+                                    <div class="col-md-12">
+                                        <span class="redstar">* Fields are Mandatory.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient"style="color: #008000 !important;margin-right: 11px;margin-top: 4px!important; width: 90%;"  id="ivClientDtlsPetitionSave1" (click)="petitionSave()" [disabled]="newpetitionitem.petitiontype==undefined||newpetitionitem.petitionSubType==undefined||newpetitionitem.petitionName==null||newpetitionitem.petitionName==undefined||newpetitionitem.petitionName==''">Save</button></div>
+                                    <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient"style="color: #FF0000 !important;margin-left: 4px;width: 90%;margin-top: 4px!important;" id="ivClientDtlsPetitionCancel1" (click)="closePopup()">Cancel</button></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+              </div>
+            </div>
+
+        </div>
+    </div>
+</div>-->

@@ -1,0 +1,87 @@
+    <div class="main-content" *ngIf="getOrgsData">
+    <!--<h1>{{user.lastName}} {{user.firstName}}</h1>-->
+    <ul class="breadcrumb">
+        <li><a href="#">Petitioners</a></li>
+    </ul>
+    <div class="table-data">
+        <h2 class="headerinsections">
+          Petitioners
+        </h2>
+            <ih-smart-table class="immiview-managAcctab-orgs newclass"
+            [settings]="settings"
+            [data]="data"
+            [paginationData]="paginationData"
+            (onAddClick)="addNewOrganization($event)"
+            (onRowClick)="onEditConfirm($event)"
+            (dataWithQueryParams)="dataWithParameters($event)">
+            </ih-smart-table>
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div *ngIf="showAddOrgpopup">
+    <div class="modal-dialog" ngDraggable>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}}</h4>
+                <button type="button" class="close" (click)="close()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="row">
+                            <div class="col-md-5">Petitioner Name :<span class="redstar">*</span></div>
+                            <div class="col-md-7"><input type="text" [(ngModel)]="neworgitem.orgName" class="form-control"></div>
+                            <div class="col-md-5">Display Name :<span class="redstar">*</span></div>
+                            <div class="col-md-7"><input type="text" [(ngModel)]="neworgitem.displayName" class="form-control"></div>
+                            <div class="col-md-5">Status :<span class="redstar">*</span></div>
+                            <div class="col-md-7">
+                                <select [(ngModel)]="neworgitem.orgStatus" class="form-control">
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">Email :<span class="redstar">*</span></div>
+                            <div class="col-md-7"><input type="email" [(ngModel)]="neworgitem.email"  required #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control" ></div>
+                            <div class="col-md-5">Type :<span class="redstar">*</span></div>
+                            <div class="col-md-7">
+                                <select [(ngModel)]="neworgitem.orgType" class="form-control" [disabled]="editorg">
+                                    <option value="Regular">Regular</option>
+                                    <option value="Delegated">Delegated</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="row sfm" *ngIf="warningMessage">
+                                    <div class="col-md-12">
+                                        <span class="redstar">* Fields are Mandatory.</span>
+                                    </div>
+                                </div>
+                                <div class="row sfm" [hidden]="email.valid || email.untouched">
+                                    <div class="col-md-12">
+                                        <div class="redstar" *ngIf="email.errors && email.errors.required">
+                                            * Email is required
+                                        </div>
+                                        <div class="redstar" *ngIf="email.errors && email.errors.pattern">
+                                            * Email is invalid
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient"style="color: #008000 !important;margin-top: 4px!important; width: 90%;margin-right: 11px;" (click)="organizationSave(email.errors)">Save</button></div>
+                                    <div class="col-md-6"><button type="button" class="editbtn tbl-head-btn iportal-btnIMclient"style="color: #FF0000 !important;margin-left: 4px;width: 90%;margin-top: 4px!important;"  (click)="cancel()">Cancel</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
